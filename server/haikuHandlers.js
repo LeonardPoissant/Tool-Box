@@ -15,7 +15,7 @@ const createHaikuDB = async (req, res) => {
 
   const haikuDataBaseName = haikuDataBase.haikuDataBaseName;
 
-  console.log(haikuDataBaseName);
+  console.log("POST DAT DB", haikuDataBase);
 
   try {
     await client.connect();
@@ -71,14 +71,11 @@ const getAllHaikus = async (req, res) => {
     shuffle(array_tmp);
     const randomHaiku = array_tmp.slice(0, n);
 
-    console.log("Im hereßß");
-
     res.status(201).json({
       status: 201,
       dataBaseArray: randomHaiku,
     });
   } catch (err) {
-    console.log(err);
     res.status(500).json({
       data: dataBaseArray,
       message: "Something went wrong",
@@ -86,8 +83,20 @@ const getAllHaikus = async (req, res) => {
     });
   }
 };
+const testEndpoint = async (req, res) => {
+  myobj = {
+    a: "a",
+    a: "a",
+    a: "a",
+  };
+  res.status(201).json({
+    status: 201,
+    myobj: myobj,
+  });
+};
 
 module.exports = {
   createHaikuDB,
   getAllHaikus,
+  testEndpoint,
 };
