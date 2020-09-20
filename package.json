@@ -1,15 +1,15 @@
 {
-  "name": "pokemonweakness",
+  "name": "tool-box",
   "version": "1.0.0",
-  "description": "Pokemon Weakness app",
+  "description": "tool-box app",
   "main": "/client/public/index.html",
   "scripts": {
     "client": "cd client && yarn install && yarn build",
-    "server": "cd server && node dist/index.js",
+    "server": "cd server && node index.js",
     "start": "yarn server",
     "full-install": "yarn install && concurrently \"cd server && yarn install \" \"cd client && yarn install \"",
     "heroku-postbuild": "concurrently \"cd server && yarn \" \"cd client && yarn && yarn build\"",
-    "dev": "concurrently \"cd client && yarn build\" \"cd server && node dist/index.js\"",
+    "dev": "concurrently \"cd client && yarn build\" \"cd server && node index.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
