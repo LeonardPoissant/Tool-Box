@@ -16,7 +16,7 @@ const HaikuGeneratorProvider = ({ children }) => {
       });
   };*/
 
-  const generateNewHaiku = () => {
+  const generateNewHaiku = async () => {
     fetch("/testEndpoint")
       .then((res) => res.json())
       .then((randomHaiku) => {
@@ -24,18 +24,6 @@ const HaikuGeneratorProvider = ({ children }) => {
         // setGeneratedHaiku(randomHaiku.dataBaseArray);
       });
   };
-
-  /* useEffect(() => {
-    const fetchData = async () => {
-      fetch("/allHaikus")
-        .then((res) => res.json())
-        .then((randomHaiku) => {
-          console.log(randomHaiku.dataBaseArray);
-          setGeneratedHaiku(randomHaiku.dataBaseArray);
-        });
-    };
-    fetchData();
-  }, [generateNewHaiku]);*/
 
   console.log("GENERATEDHAIKU", generatedHaiku);
 
