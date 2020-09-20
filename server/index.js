@@ -8,11 +8,7 @@ const _ = require("./node_modules/lodash");
 
 require("dotenv").config();
 
-const {
-  createHaikuDB,
-  getAllHaikus,
-  testEndpoint,
-} = require("./haikuHandlers");
+const { createHaikuDB, getAllHaikus } = require("./haikuHandlers");
 
 const PORT = process.env.PORT || 4000;
 
@@ -34,8 +30,6 @@ express()
   .use(express.urlencoded({ extended: false }))
   .use("/", express.static(__dirname + "/"))
 
-  //testing endpoints
-  .get("/testendPoint", testEndpoint)
   //Create a Haiku DataBase
 
   .post("/createHaikus", createHaikuDB)

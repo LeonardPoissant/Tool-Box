@@ -1,4 +1,4 @@
-const { forEach } = require("lodash");
+const { forEach, random } = require("lodash");
 const { MongoClient } = require("mongodb");
 const ObjectId = require("mongodb").ObjectId;
 const uri = process.env.MONGO_URI;
@@ -48,6 +48,8 @@ const getAllHaikus = async (req, res) => {
     const db = client.db("HAIKU-GENERATOR");
     const dataBaseArray = await db.collection("Haiku").find().toArray();
 
+    console.log("dataBaseArray", dataBaseArray);
+
     const flattenedArray = [];
     const finalArray = [];
     dataBaseArray.forEach((haikuArray) => {
@@ -60,6 +62,10 @@ const getAllHaikus = async (req, res) => {
     });
 
     const flatfinalArray = finalArray.flat();
+
+    console.log("FLAT", flattenedArray);
+
+    console.log("FLAT", flatfinalArray);
     var n = 3;
     function shuffle(a) {
       for (let i = a.length; i; i--) {
@@ -71,32 +77,22 @@ const getAllHaikus = async (req, res) => {
     shuffle(array_tmp);
     const randomHaiku = array_tmp.slice(0, n);
 
+    console.log("RANDOMHAIKU", randomHaiku);
+
     res.status(201).json({
       status: 201,
       dataBaseArray: randomHaiku,
     });
   } catch (err) {
     res.status(500).json({
-      data: dataBaseArray,
+      data: randomHaiku,
       message: "Something went wrong",
       err,
     });
   }
 };
-const testEndpoint = async (req, res) => {
-  myobj = {
-    a: "a",
-    a: "a",
-    a: "a",
-  };
-  res.status(201).json({
-    status: 201,
-    myobj: myobj,
-  });
-};
 
 module.exports = {
   createHaikuDB,
   getAllHaikus,
-  testEndpoint,
 };

@@ -7,25 +7,13 @@ const HaikuGeneratorProvider = ({ children }) => {
   const [generatedHaiku, setGeneratedHaiku] = useState([]);
   //const [generateNewHaiku, setGenerateNewHaiku] = useState(false);
 
-  /*const generateNewHaiku = () => {
+  const generateNewHaiku = async () => {
     fetch("/allHaikus")
       .then((res) => res.json())
       .then((randomHaiku) => {
-        console.log(randomHaiku.dataBaseArray);
         setGeneratedHaiku(randomHaiku.dataBaseArray);
       });
-  };*/
-
-  const generateNewHaiku = async () => {
-    fetch("/testEndpoint")
-      .then((res) => res.json())
-      .then((randomHaiku) => {
-        console.log("TESTING", randomHaiku);
-        // setGeneratedHaiku(randomHaiku.dataBaseArray);
-      });
   };
-
-  console.log("GENERATEDHAIKU", generatedHaiku);
 
   return (
     <HaikuGeneratorContext.Provider

@@ -19,8 +19,8 @@ const HaikuGenerator = () => {
       </Header>
       <HaikuWrapper>
         <HaikuDisplay>
-          {generatedHaiku.map((verse) => {
-            return <HaikuVerse>{verse}</HaikuVerse>;
+          {generatedHaiku.map((verse, index) => {
+            return <HaikuVerse key={index}>{verse}</HaikuVerse>;
           })}
         </HaikuDisplay>
         <button onClick={() => generateNewHaiku()}>GENERATE</button>
