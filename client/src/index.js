@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import App from "../src/Components/App";
+import App from "./Components/App";
 
 import HaikuDataBaseProvider from "./HaikuContext/HaikuDataBaseContext";
 import HaikuGeneratorProvider from "./HaikuContext/HaikuGeneratorContext";
