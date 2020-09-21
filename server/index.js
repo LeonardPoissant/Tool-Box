@@ -32,7 +32,7 @@ express()
   .use(express.static("./server"))
   .use(bodyParser.json())
   .use(express.urlencoded({ extended: false }))
-  .use("/", express.static(__dirname + "/client/dist"))
+  .use("/", express.static(__dirname + "../../client/dist"))
 
   //Create a Haiku DataBase
 
@@ -41,5 +41,9 @@ express()
   //testing endpoints
 
   .get("/allHaikus", getAllHaikus)
+
+  .get("path", (req, res) => {
+    res.sendFile(path.join(__dirname + "../../client/build/index.html"));
+  })
 
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));
