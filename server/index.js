@@ -32,7 +32,7 @@ express()
   .use(express.static("./server"))
   .use(bodyParser.json())
   .use(express.urlencoded({ extended: false }))
-  .use("/", express.static(__dirname + "../../client"))
+  .use("/", express.static(__dirname + "../../client/build"))
 
   //Create a Haiku DataBase
 
