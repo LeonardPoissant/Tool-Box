@@ -12,7 +12,7 @@ const HaikuDataBaseProvider = ({ children }) => {
   const handleCreateHaikuDatabase = async (e) => {
     e.preventDefault();
 
-    fetch("/createHaikus", {
+    fetch("https://toolzbox.herokuapp.com/createHaikus", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

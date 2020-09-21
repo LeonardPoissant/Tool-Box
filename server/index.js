@@ -4,11 +4,15 @@ const express = require("./node_modules/express");
 const bodyParser = require("./node_modules/body-parser");
 const morgan = require("./node_modules/morgan");
 const http = require("http");
+const path = require("path");
 const _ = require("./node_modules/lodash");
 
 require("dotenv").config();
 
-const { createHaikuDB, getAllHaikus } = require("./haikuHandlers");
+const { createHaikuDB, getAllHaikus } = require(path.join(
+  __dirname,
+  "./haikuHandlers"
+));
 
 const PORT = process.env.PORT || 4000;
 
@@ -28,7 +32,7 @@ express()
   .use(express.static("./server"))
   .use(bodyParser.json())
   .use(express.urlencoded({ extended: false }))
-  .use("/", express.static(__dirname + "/"))
+  .use("/", express.static(__dirname + "/client/dist"))
 
   //Create a Haiku DataBase
 
