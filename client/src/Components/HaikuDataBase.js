@@ -1,8 +1,6 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
 
-import { Link } from "react-router-dom";
-
 import { HaikuContext } from "../HaikuContext/HaikuDataBaseContext";
 
 const CreateHaikuDatabase = () => {
@@ -28,12 +26,16 @@ const CreateHaikuDatabase = () => {
     setHaikuArray([...haikuArray, { verse1: "", verse2: "", verse3: "" }]);
   };
 
+  const handleRemoveClick = (index) => {
+    const list = [...haikuArray];
+    list.splice(index, 1);
+    setHaikuArray(list);
+  };
+
   console.log("ARRAYsdfsdf", haikuArray);
 
   return (
     <Wrapper>
-      MY HAIKU DATABASE
-      <LinkTo to={"/HaikuGenerator"}>To generator</LinkTo>
       <HaikuDataBaseForm onSubmit={(e) => handleCreateHaikuDatabase(e)}>
         <input
           type="text"
@@ -43,34 +45,39 @@ const CreateHaikuDatabase = () => {
         ></input>
         {haikuArray.map((x, i) => {
           return (
-            <div>
-              <input
-                type="text"
-                name="verse1"
-                placeholder="type in a verse"
-                value={x.verse1}
-                onChange={(e) => handleInputChange(e, i)}
-              ></input>
-              <input
-                type="text"
-                name="verse2"
-                placeholder="type in a verse"
-                value={x.verse2}
-                onChange={(e) => handleInputChange(e, i)}
-              ></input>
-              <input
-                type="text"
-                name="verse3"
-                placeholder="type in a verse"
-                value={x.verse3}
-                onChange={(e) => handleInputChange(e, i)}
-              ></input>
-              <div>
-                {haikuArray.length - 1 === i && (
-                  <button onClick={handleAddClick}>ADD</button>
+            <InputsWrapper>
+              <VerseWrapper>
+                <VerseInput
+                  type="text"
+                  name="verse1"
+                  placeholder="type in a verse"
+                  value={x.verse1}
+                  onChange={(e) => handleInputChange(e, i)}
+                ></VerseInput>
+                <VerseInput
+                  type="text"
+                  name="verse2"
+                  placeholder="type in a verse"
+                  value={x.verse2}
+                  onChange={(e) => handleInputChange(e, i)}
+                ></VerseInput>
+                <VerseInput
+                  type="text"
+                  name="verse3"
+                  placeholder="type in a verse"
+                  value={x.verse3}
+                  onChange={(e) => handleInputChange(e, i)}
+                ></VerseInput>
+              </VerseWrapper>
+              <AddRemoveWrapper>
+                {haikuArray.length !== 1 && (
+                  <Button onClick={() => handleRemoveClick(i)}>Remove</Button>
                 )}
-              </div>
-            </div>
+                {haikuArray.length - 1 === i && (
+                  <Button onClick={handleAddClick}>ADD</Button>
+                )}
+              </AddRemoveWrapper>
+            </InputsWrapper>
           );
         })}
 
@@ -80,15 +87,45 @@ const CreateHaikuDatabase = () => {
   );
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+`;
 
-const HaikuDataBaseForm = styled.form``;
+const HaikuDataBaseForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const InputsWrapper = styled.div`
+  display: flex;
+  padding: 10px;
+`;
+
+const VerseWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const VerseInput = styled.input`
+  padding: 5px;
+  margin: 5px;
+  width: 300px;
+`;
+
+const AddRemoveWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const Button = styled.button``;
 
 const SubmitHaikuDbButton = styled.button`
   padding: 10px;
 `;
 
-const LinkTo = styled(Link)`
-  text-decoration: none;
-`;
 export default CreateHaikuDatabase;

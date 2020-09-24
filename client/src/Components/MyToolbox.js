@@ -7,7 +7,6 @@ import styled from "styled-components";
 const ToolBox = () => {
   return (
     <div>
-      <h1>THIS IS MY TOOLBOX</h1>
       <ToolsWrapper>
         <Tool to={"/HaikuGenerator"}>HAIKU GENERATOR</Tool>
       </ToolsWrapper>

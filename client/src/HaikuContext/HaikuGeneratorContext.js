@@ -1,18 +1,22 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState } from "react";
 
 export const HaikuGeneratorContext = createContext(null);
 
 const HaikuGeneratorProvider = ({ children }) => {
   //Generate a haiku from all the databases
   const [generatedHaiku, setGeneratedHaiku] = useState([]);
-  //const [generateNewHaiku, setGenerateNewHaiku] = useState(false);
+  const [animating, setAnimating] = useState(false);
+
+  //https://toolzbox.herokuapp.com/allHaikus
 
   const generateNewHaiku = async () => {
-    fetch("https://toolzbox.herokuapp.com/allHaikus")
+    fetch("/allHaikus")
       .then((res) => res.json())
       .then((randomHaiku) => {
         setGeneratedHaiku(randomHaiku.dataBaseArray);
+        setAnimating(true);
       });
+    setAnimating(false);
   };
 
   return (
@@ -20,6 +24,8 @@ const HaikuGeneratorProvider = ({ children }) => {
       value={{
         generatedHaiku,
         generateNewHaiku,
+        animating,
+        setAnimating,
       }}
     >
       {children}

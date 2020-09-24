@@ -1,47 +1,46 @@
 import React, { useContext } from "react";
 
-import { Link } from "react-router-dom";
-
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 import { HaikuGeneratorContext } from "../HaikuContext/HaikuGeneratorContext";
 
 const HaikuGenerator = () => {
-  const { generatedHaiku, generateNewHaiku } = useContext(
+  const { generatedHaiku, generateNewHaiku, animating } = useContext(
     HaikuGeneratorContext
   );
 
   return (
     <div>
-      <Header>
-        <h1>GENERATE HAIKUS / CREATE A HAIKU DATABASE</h1>
-        <LinkTo to={"/CreateMyHaikuDataBase"}>Create new haikus</LinkTo>
-      </Header>
       <HaikuWrapper>
         <HaikuDisplay>
-          {generatedHaiku.map((verse, index) => {
-            return <HaikuVerse key={index}>{verse}</HaikuVerse>;
-          })}
+          {animating ? (
+            generatedHaiku.map((verse, index) => {
+              return (
+                <HaikuVerse
+                  key={index}
+                  style={{
+                    animationDuration:
+                      index === 1 ? "3s" : index === 2 ? "4s" : "2s",
+                  }}
+                >
+                  {verse}
+                </HaikuVerse>
+              );
+            })
+          ) : (
+            <> </>
+          )}
         </HaikuDisplay>
-        <button onClick={() => generateNewHaiku()}>GENERATE</button>
+        <Generate onClick={() => generateNewHaiku()}>GENERATE</Generate>
       </HaikuWrapper>
     </div>
   );
 };
 
-const Header = styled.div`
-  height: 20vh;
-  display: flex;
-`;
-
-const LinkTo = styled(Link)`
-  text-decoration: none;
-`;
-
 const HaikuWrapper = styled.div`
   height: 80vh;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   flex-direction: column;
 `;
@@ -50,8 +49,34 @@ const HaikuDisplay = styled.div`
   padding: 70px;
 `;
 
-const HaikuVerse = styled.p`
+const verseKeyFrames = keyframes`
+0% {
+  opacity:0;
+  display:none;
+}
+30% {
+  opacity:0;
+  display:none;
+}
+50% {
+  opacity:0,5;
+}
+100%{
+  opacity:1;
+}
+`;
+
+const HaikuVerse = styled.div`
   padding: 5px;
+  width: 100%;
+  animation: ${verseKeyFrames} ease-in;
+`;
+
+const Generate = styled.button`
+  position: sticky;
+  padding: 25px;
+  border-style: solid;
+  text-decoration: none;
 `;
 
 export default HaikuGenerator;

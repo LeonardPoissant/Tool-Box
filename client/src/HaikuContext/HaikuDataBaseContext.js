@@ -1,10 +1,9 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useState } from "react";
 
 export const HaikuContext = createContext(null);
 
 const HaikuDataBaseProvider = ({ children }) => {
   const [haikuDataBaseName, setHaikuDataBaseName] = useState("");
-  const [haikuDataBase, setHaikuDataBase] = useState({});
   const [haikuArray, setHaikuArray] = useState([
     { verse1: "", verse2: "", verse3: "" },
   ]);
@@ -12,7 +11,9 @@ const HaikuDataBaseProvider = ({ children }) => {
   const handleCreateHaikuDatabase = async (e) => {
     e.preventDefault();
 
-    fetch("https://toolzbox.herokuapp.com/createHaikus", {
+    //https://toolzbox.herokuapp.com/createHaikus
+
+    fetch("/createHaikus", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -24,11 +25,9 @@ const HaikuDataBaseProvider = ({ children }) => {
       }),
     })
       .then((res) => res.json())
-      .then((myDataBase) => {
+      .then(() => {
         setHaikuDataBaseName("");
-
-        setHaikuDataBase(myDataBase);
-        console.log(myDataBase);
+        setHaikuArray([{ verse1: "", verse2: "", verse3: "" }]);
       })
       .catch((err) => {
         console.log(err);

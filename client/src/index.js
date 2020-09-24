@@ -5,6 +5,7 @@ import App from "./Components/App";
 
 import HaikuDataBaseProvider from "./HaikuContext/HaikuDataBaseContext";
 import HaikuGeneratorProvider from "./HaikuContext/HaikuGeneratorContext";
+
 ReactDOM.render(
   <React.StrictMode>
     <HaikuGeneratorProvider>
