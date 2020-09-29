@@ -10,7 +10,7 @@ const HaikuGeneratorProvider = ({ children }) => {
   //https://toolzbox.herokuapp.com/allHaikus
 
   const generateNewHaiku = async () => {
-    fetch("/https://toolzbox.herokuapp.com/allHaikus")
+    fetch("https://toolzbox.herokuapp.com/allHaikus")
       .then((res) => res.json())
       .then((randomHaiku) => {
         setGeneratedHaiku(randomHaiku.dataBaseArray);
