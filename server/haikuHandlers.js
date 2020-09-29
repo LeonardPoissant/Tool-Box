@@ -6,7 +6,7 @@ const uri = process.env.MONGO_URI;
 // createHaikuDB creates a document in MongoDb where the array of haiku verses will be stored.
 
 const createHaikuDB = async (req, res) => {
-  const client = new MongoClient(uri, {
+  /*const client = new MongoClient(uri, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
   });
@@ -15,10 +15,10 @@ const createHaikuDB = async (req, res) => {
 
   const haikuDataBaseName = haikuDataBase.haikuDataBaseName;
 
-  console.log("POST DAT DB", haikuDataBase);
+  console.log("POST DAT DB", haikuDataBase);*/
 
   try {
-    await client.connect();
+    //await client.connect();
     const db = client.db("HAIKU-GENERATOR");
     const createDB = await db
       .collection("Haiku")
@@ -39,13 +39,14 @@ const createHaikuDB = async (req, res) => {
 };
 
 const getAllHaikus = async (req, res) => {
-  const client = new MongoClient(uri, {
+  /*const client = new MongoClient(uri, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
-  });
+  });*/
   try {
     await client.connect();
-    const db = client.db("HAIKU-GENERATOR");
+
+    const db = await client.db("HAIKU-GENERATOR");
     const dataBaseArray = await db.collection("Haiku").find().toArray();
 
     console.log("dataBaseArray", dataBaseArray);
