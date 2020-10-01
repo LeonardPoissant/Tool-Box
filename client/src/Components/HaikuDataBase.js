@@ -10,29 +10,14 @@ const CreateHaikuDatabase = () => {
     setHaikuDataBaseName,
     haikuArray,
     setHaikuArray,
+    haikuDb,
   } = useContext(HaikuContext);
 
   // handle input change
-  const handleInputChange = (e, index) => {
-    const { name, value } = e.target;
-    const haikuList = [...haikuArray];
-    haikuList[index][name] = value;
-    setHaikuArray(haikuList);
-  };
+
+  console.log("haikuDb", haikuDb);
 
   //handle adding new input fields
-
-  const handleAddClick = () => {
-    setHaikuArray([...haikuArray, { verse1: "", verse2: "", verse3: "" }]);
-  };
-
-  const handleRemoveClick = (index) => {
-    const list = [...haikuArray];
-    list.splice(index, 1);
-    setHaikuArray(list);
-  };
-
-  console.log("ARRAYsdfsdf", haikuArray);
 
   return (
     <Wrapper>
@@ -43,43 +28,17 @@ const CreateHaikuDatabase = () => {
           value={haikuDataBaseName}
           onChange={(e) => setHaikuDataBaseName(e.target.value)}
         ></input>
-        {haikuArray.map((x, i) => {
-          return (
-            <InputsWrapper>
-              <VerseWrapper>
-                <VerseInput
-                  type="text"
-                  name="verse1"
-                  placeholder="type in a verse"
-                  value={x.verse1}
-                  onChange={(e) => handleInputChange(e, i)}
-                ></VerseInput>
-                <VerseInput
-                  type="text"
-                  name="verse2"
-                  placeholder="type in a verse"
-                  value={x.verse2}
-                  onChange={(e) => handleInputChange(e, i)}
-                ></VerseInput>
-                <VerseInput
-                  type="text"
-                  name="verse3"
-                  placeholder="type in a verse"
-                  value={x.verse3}
-                  onChange={(e) => handleInputChange(e, i)}
-                ></VerseInput>
-              </VerseWrapper>
-              <AddRemoveWrapper>
-                {haikuArray.length !== 1 && (
-                  <Button onClick={() => handleRemoveClick(i)}>Remove</Button>
-                )}
-                {haikuArray.length - 1 === i && (
-                  <Button onClick={handleAddClick}>ADD</Button>
-                )}
-              </AddRemoveWrapper>
-            </InputsWrapper>
-          );
-        })}
+
+        <InputsWrapper>
+          <VerseWrapper>
+            <VerseInput
+              type="text"
+              placeholder="type in a verse"
+              value={haikuArray}
+              onChange={(e) => setHaikuArray(e.target.value)}
+            ></VerseInput>
+          </VerseWrapper>
+        </InputsWrapper>
 
         <SubmitHaikuDbButton type="submit">Submit Verses</SubmitHaikuDbButton>
       </HaikuDataBaseForm>

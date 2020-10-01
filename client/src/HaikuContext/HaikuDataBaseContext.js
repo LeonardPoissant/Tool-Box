@@ -4,16 +4,15 @@ export const HaikuContext = createContext(null);
 
 const HaikuDataBaseProvider = ({ children }) => {
   const [haikuDataBaseName, setHaikuDataBaseName] = useState("");
-  const [haikuArray, setHaikuArray] = useState([
-    { verse1: "", verse2: "", verse3: "" },
-  ]);
+  const [haikuArray, setHaikuArray] = useState([]);
+  const [haikuDb, setHaikuDb] = useState({});
 
   const handleCreateHaikuDatabase = async (e) => {
     e.preventDefault();
 
     //https://toolzbox.herokuapp.com/createHaikus
 
-    fetch("https://toolzbox.herokuapp.com/createHaikus", {
+    fetch("/createHaikus", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -25,12 +24,13 @@ const HaikuDataBaseProvider = ({ children }) => {
       }),
     })
       .then((res) => res.json())
-      .then(() => {
+      .then((db) => {
         setHaikuDataBaseName("");
-        setHaikuArray([{ verse1: "", verse2: "", verse3: "" }]);
+        setHaikuArray([]);
+        setHaikuDb(db);
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.data);
       });
   };
 
@@ -42,6 +42,7 @@ const HaikuDataBaseProvider = ({ children }) => {
         setHaikuDataBaseName,
         haikuArray,
         setHaikuArray,
+        haikuDb,
       }}
     >
       {children}

@@ -14,7 +14,7 @@ function App() {
         <Route exact path="/">
           <ToolBox />
         </Route>
-        <Route path="/HaikuGenerator">
+        <Route path="/HaikuGenerator/">
           <HaikuGenerator />
         </Route>
         <Route path="/CreateMyHaikuDataBase">

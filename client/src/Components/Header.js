@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
+import { HaikuContext } from "../HaikuContext/HaikuDataBaseContext";
 
 const Header = () => {
   const [mainPageHeader, setMainPageHeader] = useState(false);
   const [generatorHeader, setGeneratorHeader] = useState(false);
   const [createPageHeader, setCreatePageHeader] = useState(false);
+  const { haikuDb } = useContext(HaikuContext);
 
   const location = useLocation();
 

@@ -3,11 +3,17 @@ import React, { useContext } from "react";
 import styled, { keyframes } from "styled-components";
 
 import { HaikuGeneratorContext } from "../HaikuContext/HaikuGeneratorContext";
+import { HaikuContext } from "../HaikuContext/HaikuDataBaseContext";
 
 const HaikuGenerator = () => {
   const { generatedHaiku, generateNewHaiku, animating } = useContext(
     HaikuGeneratorContext
   );
+
+  const { haikuDb } = useContext(HaikuContext);
+  if (haikuDb.haikuDataBase != undefined) {
+    console.log("HAIKUDB", haikuDb.haikuDataBase.haikuDataBaseName);
+  }
 
   return (
     <div>

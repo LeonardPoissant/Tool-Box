@@ -13,28 +13,82 @@ const createHaikuDB = async (req, res) => {
 
   const haikuDataBase = req.body;
 
+  console.log("HAIKUDB", haikuDataBase);
+
   const haikuDataBaseName = haikuDataBase.haikuDataBaseName;
 
-  console.log("POST DAT DB", haikuDataBase);
+  const haikuString = haikuDataBase.haikuArray;
+  let haikuArray = [];
+
+  console.log("WITH .", haikuString);
+
+  haikuArray.push(haikuString);
+
+  console.log("POST DAT DB", haikuDataBaseName);
+  const newValues = { $push: { haikuArray: haikuString } };
 
   try {
     await client.connect();
-    const db = client.db("HAIKU-GENERATOR");
+
+    const db = client.db(haikuDataBaseName);
+
     const createDB = await db
       .collection("Haiku")
-      .insertOne({ ...haikuDataBase });
+      .updateOne(
+        { haikuDataBaseName: haikuDataBaseName },
+        { $push: { haikuArray: haikuString } },
+        { upsert: true }
+      );
+
+    /*if (createDB.insertedId !== undefined) {
+      const updateDb = await db
+        .collection("Haiku")
+        .findOneAndUpdate({ _id: haikuDataBaseName }, newValues);
+    }*/
+
+    /* .bulkWrite(
+        [
+          {
+            updateOne: {
+              filter: { haikuDataBaseName: haikuDataBaseName },
+              update: { $push: { haikuArray: haikuString } },
+            },
+          },
+          {
+            insertOne: {
+              document: {
+                haikuDataBaseName: haikuDataBaseName,
+                haikuArray: haikuArray,
+              },
+            },
+          },
+          // { deleteOne: { filter: { haikuArray: haikuString } } },
+        ],
+        { ordered: false }
+      );*/
+
+    //.insertOne({
+    //  haikuDataBaseName: haikuDataBaseName,
+    // haikuArray: newValues,
+    //});
+    // .findOneAndUpdate({ haikuDataBaseName: haikuDataBaseName }, newValues);
+    //.insertOne({ ...haikuDataBase });
+    // .insertOne({ haikuDataBaseName: haikuDataBaseName, haikuArray });
+    // .find({ dataBaseName: `${haikuDataBaseName}` })
+    //.updateOne({ ...haikuDataBase });
     client.close();
     res.status(201).json({
       status: 201,
-      _id: createDB.insertedId,
+      _id: haikuDataBaseName,
       haikuDataBase: haikuDataBase,
     });
   } catch (err) {
     res.status(500).json({
-      data: haikuDataBase,
+      data: haikuDataBaseName,
       message: "Something went wrong",
-      err,
+      err: err,
     });
+    console.log(err);
   }
 };
 
@@ -45,7 +99,7 @@ const getAllHaikus = async (req, res) => {
   });
   try {
     await client.connect();
-    const db = client.db("HAIKU-GENERATOR");
+    const db = client.db("test");
     const dataBaseArray = await db.collection("Haiku").find().toArray();
 
     console.log("dataBaseArray", dataBaseArray);
@@ -73,7 +127,7 @@ const getAllHaikus = async (req, res) => {
         [a[i - 1], a[j]] = [a[j], a[i - 1]];
       }
     }
-    array_tmp = flatfinalArray.slice(0);
+    array_tmp = flattenedArray.slice(0);
     shuffle(array_tmp);
     const randomHaiku = array_tmp.slice(0, n);
 
