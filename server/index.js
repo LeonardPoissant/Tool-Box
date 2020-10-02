@@ -40,7 +40,7 @@ express()
 
   //testing endpoints
 
-  .get("/allHaikus", getAllHaikus)
+  .get("/allHaikus/:id", getAllHaikus)
 
   .get("path", (req, res) => {
     res.sendFile(path.join(__dirname + "../../client/build/index.html"));

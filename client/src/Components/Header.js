@@ -12,9 +12,11 @@ const Header = () => {
   const [createPageHeader, setCreatePageHeader] = useState(false);
   const { haikuDb } = useContext(HaikuContext);
 
+  console.log("IN HEADER", haikuDb._id);
+
   const location = useLocation();
 
-  useEffect(() => {
+  /*useEffect(() => {
     const getLocation = () => {
       if (location.pathname === "/HaikuGenerator") {
         return (
@@ -37,10 +39,19 @@ const Header = () => {
       }
     };
     getLocation();
-  }, [location.pathname]);
+  }, [location.pathname]); */
 
   return (
-    <Wrapper>
+    <>
+      <ChangePageWrapper to={`/HaikuGenerator/${haikuDb._id}`}>
+        <ArrowBackIcon />
+        <LinkTo>Generator</LinkTo>
+      </ChangePageWrapper>
+    </>
+  );
+};
+{
+  /*<Wrapper>
       {location.pathname === "/HaikuGenerator" ? (
         <>
           <ChangePageWrapper to={"/"}>
@@ -68,9 +79,8 @@ const Header = () => {
       ) : (
         <></>
       )}
-    </Wrapper>
-  );
-};
+      </Wrapper> */
+}
 
 const Wrapper = styled.div`
   height: 10vh;

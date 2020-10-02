@@ -4,24 +4,30 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import ToolBox from "./MyToolbox";
 import HaikuGenerator from "./HaikuGenerator";
 import CreateHaikuDatabase from "./HaikuDataBase";
-import Header from "./Header";
+import About from "./About";
+
+import "./App.css";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Header />
-      <Switch>
-        <Route exact path="/">
-          <ToolBox />
-        </Route>
-        <Route path="/HaikuGenerator/">
-          <HaikuGenerator />
-        </Route>
-        <Route path="/CreateMyHaikuDataBase">
-          <CreateHaikuDatabase />
-        </Route>
-      </Switch>
-    </BrowserRouter>
+    <div className="wrapper">
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/">
+            <ToolBox />
+          </Route>
+          <Route path="/HaikuGenerator/:id">
+            <HaikuGenerator />
+          </Route>
+          <Route path="/CreateMyHaikuDataBase/:id">
+            <CreateHaikuDatabase />
+          </Route>
+          <Route path="/About">
+            <About />
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    </div>
   );
 }
 

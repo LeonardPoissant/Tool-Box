@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 
 import styled, { keyframes } from "styled-components";
 
@@ -6,14 +6,29 @@ import { HaikuGeneratorContext } from "../HaikuContext/HaikuGeneratorContext";
 import { HaikuContext } from "../HaikuContext/HaikuDataBaseContext";
 
 const HaikuGenerator = () => {
-  const { generatedHaiku, generateNewHaiku, animating } = useContext(
-    HaikuGeneratorContext
-  );
-
+  //const { generatedHaiku, generateNewHaiku, animating } = useContext(
+  // HaikuGeneratorContext
+  //);
   const { haikuDb } = useContext(HaikuContext);
-  if (haikuDb.haikuDataBase != undefined) {
+
+  const [generatedHaiku, setGeneratedHaiku] = useState([]);
+  const [animating, setAnimating] = useState(false);
+
+  //https://toolzbox.herokuapp.com/allHaikus
+
+  const generateNewHaiku = async () => {
+    fetch(`/allHaikus/${haikuDb._id}`)
+      .then((res) => res.json())
+      .then((randomHaiku) => {
+        setGeneratedHaiku(randomHaiku.dataBaseArray);
+        setAnimating(true);
+      });
+    setAnimating(false);
+  };
+
+  /*if (haikuDb.haikuDataBase != undefined) {
     console.log("HAIKUDB", haikuDb.haikuDataBase.haikuDataBaseName);
-  }
+  }*/
 
   return (
     <div>
@@ -37,7 +52,7 @@ const HaikuGenerator = () => {
             <> </>
           )}
         </HaikuDisplay>
-        <Generate onClick={() => generateNewHaiku()}>GENERATE</Generate>
+        <Generate onClick={() => generateNewHaiku()}>Generate Haiku</Generate>
       </HaikuWrapper>
     </div>
   );
@@ -80,9 +95,15 @@ const HaikuVerse = styled.div`
 
 const Generate = styled.button`
   position: sticky;
-  padding: 25px;
-  border-style: solid;
-  text-decoration: none;
+  padding: 10px;
+  border: none;
+  outline: none;
+  background-color: white;
+  text-decoration: underline;
+  font-size: 25px;
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 export default HaikuGenerator;

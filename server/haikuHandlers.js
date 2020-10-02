@@ -12,26 +12,14 @@ const createHaikuDB = async (req, res) => {
   });
 
   const haikuDataBase = req.body;
-
-  console.log("HAIKUDB", haikuDataBase);
-
   const haikuDataBaseName = haikuDataBase.haikuDataBaseName;
-
   const haikuString = haikuDataBase.haikuArray;
   let haikuArray = [];
-
-  console.log("WITH .", haikuString);
-
   haikuArray.push(haikuString);
-
-  console.log("POST DAT DB", haikuDataBaseName);
-  const newValues = { $push: { haikuArray: haikuString } };
 
   try {
     await client.connect();
-
     const db = client.db(haikuDataBaseName);
-
     const createDB = await db
       .collection("Haiku")
       .updateOne(
@@ -39,43 +27,6 @@ const createHaikuDB = async (req, res) => {
         { $push: { haikuArray: haikuString } },
         { upsert: true }
       );
-
-    /*if (createDB.insertedId !== undefined) {
-      const updateDb = await db
-        .collection("Haiku")
-        .findOneAndUpdate({ _id: haikuDataBaseName }, newValues);
-    }*/
-
-    /* .bulkWrite(
-        [
-          {
-            updateOne: {
-              filter: { haikuDataBaseName: haikuDataBaseName },
-              update: { $push: { haikuArray: haikuString } },
-            },
-          },
-          {
-            insertOne: {
-              document: {
-                haikuDataBaseName: haikuDataBaseName,
-                haikuArray: haikuArray,
-              },
-            },
-          },
-          // { deleteOne: { filter: { haikuArray: haikuString } } },
-        ],
-        { ordered: false }
-      );*/
-
-    //.insertOne({
-    //  haikuDataBaseName: haikuDataBaseName,
-    // haikuArray: newValues,
-    //});
-    // .findOneAndUpdate({ haikuDataBaseName: haikuDataBaseName }, newValues);
-    //.insertOne({ ...haikuDataBase });
-    // .insertOne({ haikuDataBaseName: haikuDataBaseName, haikuArray });
-    // .find({ dataBaseName: `${haikuDataBaseName}` })
-    //.updateOne({ ...haikuDataBase });
     client.close();
     res.status(201).json({
       status: 201,
@@ -97,29 +48,19 @@ const getAllHaikus = async (req, res) => {
     useUnifiedTopology: true,
     useNewUrlParser: true,
   });
+  const { id } = req.params;
   try {
     await client.connect();
-    const db = client.db("test");
+    const db = client.db(id);
     const dataBaseArray = await db.collection("Haiku").find().toArray();
 
-    console.log("dataBaseArray", dataBaseArray);
-
     const flattenedArray = [];
-    const finalArray = [];
     dataBaseArray.forEach((haikuArray) => {
       haikuArray.haikuArray.forEach((array) => {
         flattenedArray.push(array);
       });
-      flattenedArray.forEach((object) => {
-        finalArray.push(Object.values(object));
-      });
     });
 
-    const flatfinalArray = finalArray.flat();
-
-    console.log("FLAT", flattenedArray);
-
-    console.log("FLAT", flatfinalArray);
     var n = 3;
     function shuffle(a) {
       for (let i = a.length; i; i--) {
@@ -130,8 +71,6 @@ const getAllHaikus = async (req, res) => {
     array_tmp = flattenedArray.slice(0);
     shuffle(array_tmp);
     const randomHaiku = array_tmp.slice(0, n);
-
-    console.log("RANDOMHAIKU", randomHaiku);
 
     res.status(201).json({
       status: 201,
