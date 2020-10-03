@@ -18,7 +18,7 @@ const HaikuGenerator = () => {
 
   const generateNewHaiku = async (e) => {
     e.preventDefault();
-    fetch(`/allHaikus/${haikuDb._id}`)
+    fetch(`/https://toolzbox.herokuapp.com/allHaikus/${haikuDb._id}`)
       .then((res) => res.json())
       .then((randomHaiku) => {
         setGeneratedHaiku(randomHaiku.dataBaseArray);
