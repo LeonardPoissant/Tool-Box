@@ -33,7 +33,7 @@ const CreateHaikuDatabase = () => {
   return (
     <Wrapper>
       <DbName>{haikuDataBaseName}</DbName>
-      <HaikuDataBaseForm onSubmit={(e) => handleCreateHaikuDatabase(e)}>
+      <HaikuDataBaseForm>
         <InputsWrapper>
           <VerseWrapper>
             <VerseInput
@@ -50,7 +50,12 @@ const CreateHaikuDatabase = () => {
           Verses should be between 2 and 28 characters long.. Submit at least 3
           different verses
         </Instructions>
-        <SubmitHaikuDbButton type="submit">Submit Verses</SubmitHaikuDbButton>
+        <SubmitHaikuDbButton
+          type="submit"
+          onClick={(e) => handleCreateHaikuDatabase(e)}
+        >
+          Submit Verses
+        </SubmitHaikuDbButton>
       </HaikuDataBaseForm>
       <ToGenerator to={`/HaikuGenerator/${haikuDataBaseName}`}>
         Generate Haiku

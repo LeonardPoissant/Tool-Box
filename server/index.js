@@ -42,7 +42,7 @@ express()
 
   .get("/allHaikus/:id", getAllHaikus)
 
-  .get("path", (req, res) => {
+  .get("/*", (req, res) => {
     res.sendFile(path.join(__dirname + "../../client/build/index.html"));
   })
 

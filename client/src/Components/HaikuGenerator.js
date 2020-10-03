@@ -14,10 +14,11 @@ const HaikuGenerator = () => {
   const [generatedHaiku, setGeneratedHaiku] = useState([]);
   const [animating, setAnimating] = useState(false);
 
-  //https://toolzbox.herokuapp.com/allHaikus
+  //https://toolzbox.herokuapp.com/allHaikus/${haikuDb._id}
 
-  const generateNewHaiku = async () => {
-    fetch(`https://toolzbox.herokuapp.com/allHaikus/${haikuDb._id}`)
+  const generateNewHaiku = async (e) => {
+    e.preventDefault();
+    fetch(`/allHaikus/${haikuDb._id}`)
       .then((res) => res.json())
       .then((randomHaiku) => {
         setGeneratedHaiku(randomHaiku.dataBaseArray);
@@ -52,7 +53,7 @@ const HaikuGenerator = () => {
             <> </>
           )}
         </HaikuDisplay>
-        <Generate onClick={() => generateNewHaiku()}>Generate Haiku</Generate>
+        <Generate onClick={(e) => generateNewHaiku(e)}>Generate Haiku</Generate>
       </HaikuWrapper>
     </div>
   );
