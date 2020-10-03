@@ -6,6 +6,7 @@ const morgan = require("./node_modules/morgan");
 const http = require("http");
 const path = require("path");
 const _ = require("./node_modules/lodash");
+const cors = require("cors");
 
 require("dotenv").config();
 
@@ -33,6 +34,13 @@ express()
   .use(bodyParser.json())
   .use(express.urlencoded({ extended: false }))
   .use("/", express.static(__dirname + "../../client/build"))
+  .use(
+    cors({
+      credentials: true,
+      origin: "https://toolzbox.herokuapp.com",
+      AccessControlAllowOrigin: "*",
+    })
+  )
 
   //Create a Haiku DataBase
 
