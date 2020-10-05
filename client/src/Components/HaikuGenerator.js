@@ -5,24 +5,42 @@ import styled, { keyframes } from "styled-components";
 import { HaikuContext } from "../HaikuContext/HaikuDataBaseContext";
 
 const HaikuGenerator = () => {
-  const { urlTitle } = useContext(HaikuContext);
+  const { urlTitle, setHaikuDataBaseName, setUrlTitle } = useContext(
+    HaikuContext
+  );
   const [generatedHaiku, setGeneratedHaiku] = useState([]);
   const [animating, setAnimating] = useState(false);
 
   //https://toolzbox.herokuapp.com/allHaikus/${haikuDb._id}
 
-  /*useEffect(() => {
-    setUrlTitle(sessionStorage.getItem("haikuDataBaseName"));
-    console.log("INSIDEEFFECT", urlTitle);
-  });*/
-
-  /*useEffect(() => {
+  /* useEffect(() => {
     setHaikuDataBaseName(sessionStorage.getItem("haikuDataBaseName"));
-    console.log("DBNAMEIN EFFECTY", haikuDataBaseName);
-  });*/
+  }, []);*/
+
+  useEffect(() => {
+    async function fetchDbNames() {
+      const UserDbName = await setHaikuDataBaseName(
+        sessionStorage.getItem("haikuDataBaseName")
+      );
+      const MongoDbName = await setUrlTitle(
+        sessionStorage.getItem("haikuDataBaseName")
+      );
+    }
+    fetchDbNames();
+
+    fetch(`/allHaikus/${urlTitle}`, {
+      mode: "cors",
+    })
+      .then((res) => res.json())
+      .then((randomHaiku) => {
+        setGeneratedHaiku(randomHaiku.dataBaseArray);
+        setAnimating(true);
+      });
+    setAnimating(false);
+  }, [urlTitle]);
 
   const generateNewHaiku = async (e) => {
-    fetch(`https://toolzbox.herokuapp.com/allHaikus/${urlTitle}`, {
+    fetch(`/allHaikus/${urlTitle}`, {
       mode: "cors",
     })
       .then((res) => res.json())

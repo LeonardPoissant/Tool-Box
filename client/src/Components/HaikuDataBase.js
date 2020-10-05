@@ -12,17 +12,18 @@ const CreateHaikuDatabase = () => {
     haikuArray,
     setHaikuArray,
     urlTitle,
+    alert,
   } = useContext(HaikuContext);
 
-  /*useEffect(() => {
+  useEffect(() => {
     setHaikuDataBaseName(sessionStorage.getItem("haikuDataBaseName"));
     console.log("DBNAMEIN EFFECTY", haikuDataBaseName);
-  });*/
-
+  }, []);
+  console.log("ALERT", alert);
   return (
     <Wrapper>
       <DbName>{haikuDataBaseName}</DbName>
-      <HaikuDataBaseForm>
+      <HaikuDataBaseForm onSubmit={(e) => handleCreateHaikuDatabase(e)}>
         <InputsWrapper>
           <VerseWrapper>
             <VerseInput
@@ -39,12 +40,7 @@ const CreateHaikuDatabase = () => {
           Verses should be between 2 and 28 characters long.. Submit at least 3
           different verses
         </Instructions>
-        <SubmitHaikuDbButton
-          type="submit"
-          onClick={(e) => handleCreateHaikuDatabase(e)}
-        >
-          Submit Verses
-        </SubmitHaikuDbButton>
+        <SubmitHaikuDbButton type="submit">Submit Verse</SubmitHaikuDbButton>
       </HaikuDataBaseForm>
       <ToGenerator to={`/HaikuGenerator/${urlTitle}`}>
         Generate Haiku
@@ -62,7 +58,6 @@ const Wrapper = styled.div`
 `;
 
 const DbName = styled.div`
-  text-decoration: underline;
   font-size: 25px;
 `;
 
