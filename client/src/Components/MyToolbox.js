@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 
 import { Link } from "react-router-dom";
 
@@ -7,29 +7,7 @@ import styled from "styled-components";
 import { HaikuContext } from "../HaikuContext/HaikuDataBaseContext";
 
 const ToolBox = () => {
-  const { haikuDataBaseName, setHaikuDataBaseName } = useContext(HaikuContext);
-  const [allowStart, setAllowStart] = useState(false);
-
-  const { a, setA } = useState("false");
-
-  console.log("a", a);
-
-  const saveContent = (haikuDataBaseName) => {
-    window.sessionStorage.setItem("haikuDataBaseName", haikuDataBaseName);
-  };
-
-  const onChange = (e) => {
-    setHaikuDataBaseName(e);
-    saveContent(e);
-    setAllowStart(true);
-  };
-  /* useEffect(() => {
-    if (haikuDataBaseName.length > 0) {
-      setAllowStart(true);
-    }
-  }, []);*/
-
-  console.log("ALLOW", allowStart);
+  const { haikuDataBaseName, urlTitle, onChange } = useContext(HaikuContext);
 
   return (
     <div>
@@ -48,8 +26,10 @@ const ToolBox = () => {
           </GuideLine>
         </Wrapper>
         <Start
-          to={`/CreateMyHaikuDataBase/${haikuDataBaseName}`}
-          style={!allowStart ? { pointerEvents: "none" } : null}
+          to={`/CreateMyHaikuDataBase/${urlTitle}`}
+          style={
+            haikuDataBaseName.length === 0 ? { pointerEvents: "none" } : null
+          }
         >
           <div>Start</div>
         </Start>
@@ -78,6 +58,7 @@ const DbName = styled.input`
   width: 300px;
   text-align: center;
   height: 20px;
+  outline: none;
 `;
 
 const GuideLine = styled.div`

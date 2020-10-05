@@ -1,4 +1,6 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
+
+import useRemoveSpace from "../Utils/RemoveSpaces";
 
 export const HaikuContext = createContext(null);
 
@@ -6,9 +8,25 @@ const HaikuDataBaseProvider = ({ children }) => {
   const [haikuDataBaseName, setHaikuDataBaseName] = useState("");
   const [haikuArray, setHaikuArray] = useState([]);
   const [haikuDb, setHaikuDb] = useState({});
+  const [urlTitle, setUrlTitle] = useRemoveSpace(haikuDataBaseName);
+
+  const saveContent = (haikuDataBaseName) => {
+    window.sessionStorage.setItem("haikuDataBaseName", haikuDataBaseName);
+  };
+  useEffect(() => {
+    setHaikuDataBaseName(sessionStorage.getItem("haikuDataBaseName"));
+    console.log("DBNAMEIN EFFECTY", haikuDataBaseName);
+  });
+
+  const onChange = (e) => {
+    setHaikuDataBaseName(e);
+    saveContent(e);
+    setUrlTitle(e);
+  };
 
   const handleCreateHaikuDatabase = async (e) => {
     e.preventDefault();
+    setUrlTitle(urlTitle);
 
     //https://toolzbox.herokuapp.com/createHaikus
 
@@ -18,14 +36,15 @@ const HaikuDataBaseProvider = ({ children }) => {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
+      mode: "cors",
       body: JSON.stringify({
-        haikuDataBaseName,
+        urlTitle,
         haikuArray,
       }),
     })
       .then((res) => res.json())
       .then((db) => {
-        setHaikuDataBaseName("");
+        //setHaikuDataBaseName("");
         setHaikuArray([]);
         setHaikuDb(db);
       })
@@ -43,6 +62,9 @@ const HaikuDataBaseProvider = ({ children }) => {
         haikuArray,
         setHaikuArray,
         haikuDb,
+        urlTitle,
+        setUrlTitle,
+        onChange,
       }}
     >
       {children}

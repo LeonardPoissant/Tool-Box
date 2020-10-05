@@ -1,9 +1,11 @@
 const { forEach, random } = require("lodash");
 const { MongoClient } = require("mongodb");
-const ObjectId = require("mongodb").ObjectId;
+
 const uri = process.env.MONGO_URI;
 
-// createHaikuDB creates a document in MongoDb where the array of haiku verses will be stored.
+// createHaikuDB creates a data base and a document, where the array of haikus is stored, in MongoDB.
+
+// If the data base name is already created we just updtade the document.
 
 const createHaikuDB = async (req, res) => {
   const client = new MongoClient(uri, {
@@ -12,7 +14,7 @@ const createHaikuDB = async (req, res) => {
   });
 
   const haikuDataBase = req.body;
-  const haikuDataBaseName = haikuDataBase.haikuDataBaseName;
+  const haikuDataBaseName = haikuDataBase.urlTitle;
   const haikuString = haikuDataBase.haikuArray;
   let haikuArray = [];
   haikuArray.push(haikuString);
@@ -35,7 +37,7 @@ const createHaikuDB = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      data: haikuDataBaseName,
+      data: haikuDataBase,
       message: "Something went wrong",
       err: err,
     });
@@ -43,12 +45,16 @@ const createHaikuDB = async (req, res) => {
   }
 };
 
+// We connect to the right DB using params and send back 3 verses from the haiku array.
+
 const getAllHaikus = async (req, res) => {
   const client = new MongoClient(uri, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
   });
   const { id } = req.params;
+
+  console.log({ id });
   try {
     await client.connect();
     const db = client.db(id);

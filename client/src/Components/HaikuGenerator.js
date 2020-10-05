@@ -1,24 +1,30 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import styled, { keyframes } from "styled-components";
 
-import { HaikuGeneratorContext } from "../HaikuContext/HaikuGeneratorContext";
 import { HaikuContext } from "../HaikuContext/HaikuDataBaseContext";
 
 const HaikuGenerator = () => {
-  //const { generatedHaiku, generateNewHaiku, animating } = useContext(
-  // HaikuGeneratorContext
-  //);
-  const { haikuDb } = useContext(HaikuContext);
-
+  const { urlTitle } = useContext(HaikuContext);
   const [generatedHaiku, setGeneratedHaiku] = useState([]);
   const [animating, setAnimating] = useState(false);
 
   //https://toolzbox.herokuapp.com/allHaikus/${haikuDb._id}
 
+  /*useEffect(() => {
+    setUrlTitle(sessionStorage.getItem("haikuDataBaseName"));
+    console.log("INSIDEEFFECT", urlTitle);
+  });*/
+
+  /*useEffect(() => {
+    setHaikuDataBaseName(sessionStorage.getItem("haikuDataBaseName"));
+    console.log("DBNAMEIN EFFECTY", haikuDataBaseName);
+  });*/
+
   const generateNewHaiku = async (e) => {
-    e.preventDefault();
-    fetch(`https://toolzbox.herokuapp.com/allHaikus/${haikuDb._id}`)
+    fetch(`https://toolzbox.herokuapp.com/allHaikus/${urlTitle}`, {
+      mode: "cors",
+    })
       .then((res) => res.json())
       .then((randomHaiku) => {
         setGeneratedHaiku(randomHaiku.dataBaseArray);
@@ -27,12 +33,8 @@ const HaikuGenerator = () => {
     setAnimating(false);
   };
 
-  /*if (haikuDb.haikuDataBase != undefined) {
-    console.log("HAIKUDB", haikuDb.haikuDataBase.haikuDataBaseName);
-  }*/
-
   return (
-    <div>
+    <>
       <HaikuWrapper>
         <HaikuDisplay>
           {animating ? (
@@ -53,9 +55,11 @@ const HaikuGenerator = () => {
             <> </>
           )}
         </HaikuDisplay>
-        <Generate onClick={(e) => generateNewHaiku(e)}>Generate Haiku</Generate>
       </HaikuWrapper>
-    </div>
+      <GenerateWrapper>
+        <Generate onClick={(e) => generateNewHaiku(e)}>Generate Haiku</Generate>
+      </GenerateWrapper>
+    </>
   );
 };
 
@@ -94,8 +98,14 @@ const HaikuVerse = styled.div`
   animation: ${verseKeyFrames} ease-in;
 `;
 
+const GenerateWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const Generate = styled.button`
-  position: sticky;
+  position: absolute;
   padding: 10px;
   border: none;
   outline: none;

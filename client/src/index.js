@@ -4,15 +4,12 @@ import ReactDOM from "react-dom";
 import App from "./Components/App";
 
 import HaikuDataBaseProvider from "./HaikuContext/HaikuDataBaseContext";
-import HaikuGeneratorProvider from "./HaikuContext/HaikuGeneratorContext";
 
 ReactDOM.render(
   <React.StrictMode>
-    <HaikuGeneratorProvider>
-      <HaikuDataBaseProvider>
-        <App />
-      </HaikuDataBaseProvider>
-    </HaikuGeneratorProvider>
+    <HaikuDataBaseProvider>
+      <App />
+    </HaikuDataBaseProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

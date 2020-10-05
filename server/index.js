@@ -42,11 +42,11 @@ express()
     })
   )
 
-  //Create a Haiku DataBase
+  //Create the Haiku DataBase
 
   .post("/createHaikus", createHaikuDB)
 
-  //testing endpoints
+  //Get the randomzied Haiku
 
   .get("/allHaikus/:id", getAllHaikus)
 

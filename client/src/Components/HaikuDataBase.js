@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
 
 import { HaikuContext } from "../HaikuContext/HaikuDataBaseContext";
 
@@ -12,23 +11,13 @@ const CreateHaikuDatabase = () => {
     setHaikuDataBaseName,
     haikuArray,
     setHaikuArray,
-    haikuDb,
+    urlTitle,
   } = useContext(HaikuContext);
 
-  const history = useHistory();
-
-  // handle input change
-
-  useEffect(() => {
+  /*useEffect(() => {
     setHaikuDataBaseName(sessionStorage.getItem("haikuDataBaseName"));
-  });
-
-  console.log("haikuDataBaseName", haikuDataBaseName);
-
-  //handle adding new input fields
-
-  //handleCreateHaikuDatabase(),
-  //history.push(`/HaikuGenerator/${haikuDataBaseName}`);
+    console.log("DBNAMEIN EFFECTY", haikuDataBaseName);
+  });*/
 
   return (
     <Wrapper>
@@ -57,7 +46,7 @@ const CreateHaikuDatabase = () => {
           Submit Verses
         </SubmitHaikuDbButton>
       </HaikuDataBaseForm>
-      <ToGenerator to={`/HaikuGenerator/${haikuDataBaseName}`}>
+      <ToGenerator to={`/HaikuGenerator/${urlTitle}`}>
         Generate Haiku
       </ToGenerator>
     </Wrapper>
