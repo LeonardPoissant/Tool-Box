@@ -15,7 +15,6 @@ const HaikuDataBaseProvider = ({ children }) => {
   };
   useEffect(() => {
     setHaikuDataBaseName(sessionStorage.getItem("haikuDataBaseName"));
-    console.log("DBNAMEIN EFFECTY", haikuDataBaseName);
   });
 
   const onChange = (e) => {
