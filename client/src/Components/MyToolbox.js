@@ -28,7 +28,9 @@ const ToolBox = () => {
         <Start
           to={`/CreateMyHaikuDataBase/${urlTitle}`}
           style={
-            haikuDataBaseName.length === 0 ? { pointerEvents: "none" } : null
+            haikuDataBaseName != null && haikuDataBaseName.length === 0
+              ? { pointerEvents: "none" }
+              : null
           }
         >
           <div>Start</div>
