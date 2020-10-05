@@ -7,8 +7,10 @@ import { useState, useEffect } from "react";
 function useRemoveSpace(title) {
   const [urlTitle, setUrlTitle] = useState(title);
   useEffect(() => {
-    const remove = title.replace(/\s+/g, "");
-    setUrlTitle(remove);
+    if (title != null) {
+      const remove = title.replace(/\s+/g, "");
+      setUrlTitle(remove);
+    }
   });
 
   return [urlTitle, setUrlTitle];
