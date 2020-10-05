@@ -13,6 +13,8 @@ const HaikuDataBaseProvider = ({ children }) => {
   const saveContent = (haikuDataBaseName) => {
     window.sessionStorage.setItem("haikuDataBaseName", haikuDataBaseName);
   };
+
+  //MOVE THE USEFFECT BACK TO 2ND AND 3RD PAGE SO ON MAIN PAGE WE CAN CLEAR ON REFRESH.
   useEffect(() => {
     setHaikuDataBaseName(sessionStorage.getItem("haikuDataBaseName"));
   });

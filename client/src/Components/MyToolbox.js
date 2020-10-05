@@ -27,7 +27,11 @@ const ToolBox = () => {
         </Wrapper>
         <Start
           to={`/CreateMyHaikuDataBase/${urlTitle}`}
-          style={haikuDataBaseName === null ? { pointerEvents: "none" } : null}
+          style={
+            haikuDataBaseName === null
+              ? { pointerEvents: "none" }
+              : { pointerEvents: "visible" }
+          }
         >
           <div>Start</div>
         </Start>
