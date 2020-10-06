@@ -13,22 +13,8 @@ const HaikuGenerator = () => {
 
   //https://toolzbox.herokuapp.com/allHaikus/${haikuDb._id}
 
-  /* useEffect(() => {
-    setHaikuDataBaseName(sessionStorage.getItem("haikuDataBaseName"));
-  }, []);*/
-
   useEffect(() => {
-    async function fetchDbNames() {
-      const UserDbName = await setHaikuDataBaseName(
-        sessionStorage.getItem("haikuDataBaseName")
-      );
-      const MongoDbName = await setUrlTitle(
-        sessionStorage.getItem("haikuDataBaseName")
-      );
-    }
-    fetchDbNames();
-
-    fetch(`/allHaikus/${urlTitle}`, {
+    fetch(`https://toolzbox.herokuapp.com/allHaikus/${urlTitle}`, {
       mode: "cors",
     })
       .then((res) => res.json())

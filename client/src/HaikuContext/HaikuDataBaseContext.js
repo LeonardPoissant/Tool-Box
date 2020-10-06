@@ -31,12 +31,10 @@ const HaikuDataBaseProvider = ({ children }) => {
     e.preventDefault();
     setUrlTitle(urlTitle);
 
-    console.log("ARRAY", typeof haikuArray);
-
     //https://toolzbox.herokuapp.com/createHaikus
 
     if (haikuArray.length >= 2) {
-      fetch("/createHaikus", {
+      fetch("https://toolzbox.herokuapp.com/createHaikus", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

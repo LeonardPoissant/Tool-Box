@@ -17,9 +17,8 @@ const CreateHaikuDatabase = () => {
 
   useEffect(() => {
     setHaikuDataBaseName(sessionStorage.getItem("haikuDataBaseName"));
-    console.log("DBNAMEIN EFFECTY", haikuDataBaseName);
   }, []);
-  console.log("ALERT", alert);
+
   return (
     <Wrapper>
       <DbName>{haikuDataBaseName}</DbName>
@@ -90,6 +89,9 @@ const VerseInput = styled.input`
 const Instructions = styled.div`
   padding-bottom: 100px;
   color: rgb(204, 204, 204);
+  @media (max-width: 736px) {
+    width: 75%;
+  }
 `;
 
 const SubmitHaikuDbButton = styled.button`

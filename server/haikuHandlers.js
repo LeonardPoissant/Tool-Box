@@ -84,7 +84,7 @@ const getAllHaikus = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      data: randomHaiku,
+      data: dataBaseArray,
       message: "Something went wrong",
       err,
     });
