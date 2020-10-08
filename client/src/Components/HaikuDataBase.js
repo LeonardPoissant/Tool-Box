@@ -17,7 +17,7 @@ const CreateHaikuDatabase = () => {
 
   useEffect(() => {
     setHaikuDataBaseName(sessionStorage.getItem("haikuDataBaseName"));
-  }, [urTitle]);
+  }, []);
 
   return (
     <Wrapper>
