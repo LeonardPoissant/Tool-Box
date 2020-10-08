@@ -26,7 +26,7 @@ const HaikuGenerator = () => {
   }, [urlTitle]);
 
   const generateNewHaiku = async (e) => {
-    fetch(`/allHaikus/${urlTitle}`, {
+    fetch(`https://toolzbox.herokuapp.com/allHaikus/${urlTitle}`, {
       mode: "cors",
     })
       .then((res) => res.json())

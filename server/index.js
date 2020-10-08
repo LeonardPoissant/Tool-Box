@@ -27,6 +27,7 @@ express()
       "Access-Control-Allow-Headers",
       "Origin, X-Requested-With, Content-Type, Accept"
     );
+    res.header("Access-Control-Allow-Origin", "*");
     next();
   })
   .use(morgan("tiny"))
@@ -34,13 +35,13 @@ express()
   .use(bodyParser.json())
   .use(express.urlencoded({ extended: false }))
   .use("/", express.static(__dirname + "../../client/build"))
-  .use(
+  /*.use(
     cors({
       credentials: true,
       origin: "https://toolzbox.herokuapp.com",
       AccessControlAllowOrigin: "*",
     })
-  )
+  )*/
 
   //Create the Haiku DataBase
 
