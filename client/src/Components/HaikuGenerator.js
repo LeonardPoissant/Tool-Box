@@ -5,9 +5,7 @@ import styled, { keyframes } from "styled-components";
 import { HaikuContext } from "../HaikuContext/HaikuDataBaseContext";
 
 const HaikuGenerator = () => {
-  const { urlTitle, setHaikuDataBaseName, setUrlTitle } = useContext(
-    HaikuContext
-  );
+  const { urlTitle } = useContext(HaikuContext);
   const [generatedHaiku, setGeneratedHaiku] = useState([]);
   const [animating, setAnimating] = useState(false);
 

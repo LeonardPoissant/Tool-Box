@@ -7,7 +7,6 @@ export const HaikuContext = createContext(null);
 const HaikuDataBaseProvider = ({ children }) => {
   const [haikuDataBaseName, setHaikuDataBaseName] = useState("");
   const [haikuArray, setHaikuArray] = useState([]);
-  const [haikuDb, setHaikuDb] = useState({});
   const [urlTitle, setUrlTitle] = useRemoveSpace(haikuDataBaseName);
   const [alert, setAlert] = useState(false);
 
@@ -49,7 +48,7 @@ const HaikuDataBaseProvider = ({ children }) => {
         .then((db) => {
           //setHaikuDataBaseName("");
           setHaikuArray([]);
-          setHaikuDb(db);
+          console.log(db);
         })
         .catch((err) => {
           console.log(err.data);
@@ -67,7 +66,6 @@ const HaikuDataBaseProvider = ({ children }) => {
         setHaikuDataBaseName,
         haikuArray,
         setHaikuArray,
-        haikuDb,
         urlTitle,
         setUrlTitle,
         onChange,

@@ -12,7 +12,6 @@ const CreateHaikuDatabase = () => {
     haikuArray,
     setHaikuArray,
     urlTitle,
-    alert,
   } = useContext(HaikuContext);
 
   useEffect(() => {
