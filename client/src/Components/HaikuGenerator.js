@@ -14,9 +14,7 @@ const HaikuGenerator = () => {
   //https://toolzbox.herokuapp.com/allHaikus/${haikuDb._id}
 
   useEffect(() => {
-    fetch(`https://toolzbox.herokuapp.com/allHaikus/${urlTitle}`, {
-      mode: "cors",
-    })
+    fetch(`https://toolzbox.herokuapp.com/allHaikus/${urlTitle}`)
       .then((res) => res.json())
       .then((randomHaiku) => {
         setGeneratedHaiku(randomHaiku.dataBaseArray);
@@ -26,9 +24,7 @@ const HaikuGenerator = () => {
   }, [urlTitle]);
 
   const generateNewHaiku = async (e) => {
-    fetch(`https://toolzbox.herokuapp.com/allHaikus/${urlTitle}`, {
-      mode: "cors",
-    })
+    fetch(`https://toolzbox.herokuapp.com/allHaikus/${urlTitle}`)
       .then((res) => res.json())
       .then((randomHaiku) => {
         setGeneratedHaiku(randomHaiku.dataBaseArray);
