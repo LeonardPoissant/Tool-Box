@@ -8,11 +8,12 @@ The requierements were to make a generator where users could create their own da
 
 ![Alt text](client/public/FIGMA.png)
 
-## Running the app
+## Fetching from the API
 
 The API works as follow:
 
 POST: https://toolzbox.herokuapp.com/createHaikus
+
 POST is used to send data to the server and then to create/update the data base in MongoDB.
 
 ```java
@@ -33,22 +34,55 @@ fetch("https://toolzbox.herokuapp.com/createHaikus", {
         })
 ```
 
-GET: https://toolzbox.herokuapp.com/allHaikus/:id
+GET: https://toolzbox.herokuapp.com/randomHaiku/:id
 
-returns an object with a dataBase array containing 3 random verses.
+returns 3 random verses from a specific database.
 
 ```java
-fetch("https://toolzbox.herokuapp.com/allHaikus/MyAwesomeHaikus")
+fetch("https://toolzbox.herokuapp.com/randomHaiku/MyAwesomeHaikus")
       .then((res) => res.json())
       .then((randomHaiku) => {
         console.log(randomHaiku)
       });
 ```
 
-Object  
-dataBaseArray: Array(3)  
-0: "Aux pignons rouges "  
-1: "du vent de lichen"  
-2: "La cheminée qui s’étire"  
-length: 3  
-status: 201
+```java
+{
+  "status": 201,
+  "dataBaseArray": [
+    "Donohue papers",
+    "University of Chicago",
+    "hot hand fallacy"
+  ]
+}
+```
+
+GET: https://toolzbox.herokuapp.com/allVerses/:id
+
+Returns all the information from a specific database
+
+```java
+fetch("https://toolzbox.herokuapp.com/allVerses/MyAwesomeHaikus")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+      });
+```
+
+```java
+{
+  "status": 201,
+  "dataBaseArray": [
+    {
+      "_id": "5f7ee58d58463b0a95c0cee0",
+      "haikuDataBaseName": "MyAwesomeHaiku",
+      "haikuArray": [
+        "hot hand fallacy",
+        "University of Chicago",
+        "Donohue papers",
+        "sdf"
+      ]
+    }
+  ]
+}
+```

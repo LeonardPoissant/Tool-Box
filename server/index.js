@@ -10,7 +10,7 @@ const cors = require("cors");
 
 require("dotenv").config();
 
-const { createHaikuDB, getAllHaikus } = require(path.join(
+const { createHaikuDB, getRandomHaiku, getAllVerses } = require(path.join(
   __dirname,
   "./haikuHandlers"
 ));
@@ -47,9 +47,13 @@ express()
 
   .post("/createHaikus", createHaikuDB)
 
-  //Get the randomzied Haiku
+  //Get the randomzied Haiku from specific data base
 
-  .get("/allHaikus/:id", getAllHaikus)
+  .get("/randomHaiku/:id", getRandomHaiku)
+
+  //Get all the verses from specific data base
+
+  .get("/allVerses/:id", getAllVerses)
 
   .get("/*", (req, res) => {
     res.sendFile(path.join(__dirname + "../../client/build/index.html"));

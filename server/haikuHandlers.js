@@ -47,7 +47,7 @@ const createHaikuDB = async (req, res) => {
 
 // We connect to the right DB using params and send back 3 verses from the haiku array.
 
-const getAllHaikus = async (req, res) => {
+const getRandomHaiku = async (req, res) => {
   const client = new MongoClient(uri, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
@@ -91,7 +91,31 @@ const getAllHaikus = async (req, res) => {
   }
 };
 
+const getAllVerses = async (req, res) => {
+  const client = new MongoClient(uri, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  });
+  const { id } = req.params;
+  try {
+    await client.connect();
+    const db = client.db(id);
+    const dataBaseArray = await db.collection("Haiku").find().toArray();
+    res.status(201).json({
+      status: 201,
+      dataBaseArray: dataBaseArray,
+    });
+  } catch (err) {
+    res.status(500).json({
+      data: dataBaseArray,
+      message: "Something went wrong",
+      err,
+    });
+  }
+};
+
 module.exports = {
   createHaikuDB,
-  getAllHaikus,
+  getRandomHaiku,
+  getAllVerses,
 };
