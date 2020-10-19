@@ -10,7 +10,7 @@ const cors = require("cors");
 
 require("dotenv").config();
 
-const { createHaikuDB, getRandomHaiku, getAllVerses } = require(path.join(
+const { createHaikuDB, getRandomHaiku, getDbInfo, deleteVerses } = require(path.join(
   __dirname,
   "./haikuHandlers"
 ));
@@ -51,9 +51,14 @@ express()
 
   .get("/randomHaiku/:id", getRandomHaiku)
 
-  //Get all the verses from specific data base
 
-  .get("/allVerses/:id", getAllVerses)
+  //Get the DB Info
+
+  .get("/dbInfo/:id", getDbInfo)
+
+  //Delete selected verses
+
+  .delete("/delete", deleteVerses)
 
   .get("/*", (req, res) => {
     res.sendFile(path.join(__dirname + "../../client/build/index.html"));

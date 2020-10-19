@@ -20,7 +20,10 @@ const CreateHaikuDatabase = () => {
 
   return (
     <Wrapper>
+      <Link to={`/ManageDb/${urlTitle}`}>
       <DbName>{haikuDataBaseName}</DbName>
+      </Link>
+      
       <HaikuDataBaseForm onSubmit={(e) => handleCreateHaikuDatabase(e)}>
         <InputsWrapper>
           <VerseWrapper>
@@ -83,6 +86,7 @@ const VerseInput = styled.input`
   width: 400px;
   text-align: center;
   outline: none;
+  font-size:16px;
 `;
 
 const Instructions = styled.div`

@@ -4,7 +4,7 @@ Haiku-Generator is a simple application created for a client using a MERN stack.
 
 <a href="https://gyazo.com/d599404299d046733074e184bc96385b"><img src="https://i.gyazo.com/d599404299d046733074e184bc96385b.gif" alt="Image from Gyazo" width="576"/></a>
 
-The requierements were to make a generator where users could create their own database, input verses to populate said database and display 3 lines chosen randomly following this design:
+The requierements were to make a generator where users could create their own database, generate 3 random lines and have the ability to manage their data following this design:
 
 ![Alt text](client/public/FIGMA.png)
 
@@ -16,7 +16,10 @@ POST: https://toolzbox.herokuapp.com/createHaikus
 
 POST is used to send data to the server and then to create/update the data base in MongoDB.
 
+Example:
+
 ```java
+
 fetch("https://toolzbox.herokuapp.com/createHaikus", {
         method: "POST",
         headers: {
@@ -85,4 +88,38 @@ fetch("https://toolzbox.herokuapp.com/allVerses/MyAwesomeHaikus")
     }
   ]
 }
+```
+
+DELETE: https://toolzbox.herokuapp.com/delete
+
+Deletes selected verses
+
+```java
+fetch("https://toolzbox.herokuapp.com/delete", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        mode: "cors",
+        body: JSON.stringify({
+          urlTitle,
+          deletedArray,
+        }),
+      })
+        .then((res) => res.json())
+        .then((db) => {
+          console.log(db)
+        })
+```
+
+```java
+
+{
+  "status": 201,
+  "dataBase": {
+    "result": {
+      "n": 1,
+      "nModified": 1,
+      ...
 ```

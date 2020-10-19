@@ -91,7 +91,7 @@ const getRandomHaiku = async (req, res) => {
   }
 };
 
-const getAllVerses = async (req, res) => {
+const getDbInfo = async (req, res) => {
   const client = new MongoClient(uri, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
@@ -114,8 +114,41 @@ const getAllVerses = async (req, res) => {
   }
 };
 
+
+const deleteVerses = async (req, res)=>{
+  const client = new MongoClient(uri, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  });
+  const data = req.body;
+
+  console.log(data)
+  const id = data.urlTitle
+  const deletedArray = data.deletedArray
+  try {
+    await client.connect();
+    const db = client.db(id);
+    const dataBase = await db.collection("Haiku").updateOne(
+      { haikuDataBaseName: id },
+      { $pull: { haikuArray: { $in: deletedArray } }},
+      { upsert: true }
+      )
+    res.status(201).json({
+      status: 201,
+      dataBase:dataBase,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: "Something went wrong",
+      err,
+    });
+  }
+}
+
 module.exports = {
   createHaikuDB,
   getRandomHaiku,
-  getAllVerses,
+  getDbInfo,
+  deleteVerses
 };
+

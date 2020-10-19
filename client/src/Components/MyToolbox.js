@@ -61,6 +61,7 @@ const DbName = styled.input`
   text-align: center;
   height: 20px;
   outline: none;
+  font-size:16px;
 `;
 
 const GuideLine = styled.div`
