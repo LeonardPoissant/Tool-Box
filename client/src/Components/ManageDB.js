@@ -21,14 +21,18 @@ const [isDeleted, setIsDeleted] = useState(false)
 
 
 useEffect(()=>{
-    fetch(`https://toolzbox.herokuapp.com/dbInfo/${urlTitle}`)
-      .then((res) => res.json())
-      .then((data) => {
-      console.log(data)
-      setDataBaseName(data.dataBaseName)
-      setArray(data.haikuArray)
-      });
-      console.log(isDeleted)
+    const fetchMyData = async()=>{
+        fetch(`https://toolzbox.herokuapp.com/dbInfo/${urlTitle}`)
+        .then((res) => res.json())
+        .then((data) => {
+        console.log(data)
+        setDataBaseName(data.dataBaseName)
+        setArray(data.haikuArray)
+        });
+        console.log(isDeleted)
+    }
+    fetchMyData();
+   
 },[isDeleted]);
 
 const handleDelete =(verse, index)=>{
