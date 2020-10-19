@@ -21,7 +21,7 @@ const [isDeleted, setIsDeleted] = useState(false)
 
 
 useEffect(()=>{
-    const fetchMyData = async()=>{
+
         fetch(`https://toolzbox.herokuapp.com/dbInfo/${urlTitle}`)
         .then((res) => res.json())
         .then((data) => {
@@ -30,8 +30,7 @@ useEffect(()=>{
         setArray(data.haikuArray)
         });
         console.log(isDeleted)
-    }
-    fetchMyData();
+
    
 },[isDeleted]);
 
