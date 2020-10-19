@@ -99,7 +99,7 @@ return(
 </ButtonWrapper>
 <Ul>
 
-{array.map((verse, index)=>{
+{array != undefined ? (array.map((verse, index)=>{
     return(
         <VerseWrapper key={index}>
             <Verse >
@@ -115,7 +115,7 @@ return(
             </DeleteUndoButton>}
         </VerseWrapper>
     )
-})}
+})): <div>loading</div>}
 </Ul>
 
 </>
