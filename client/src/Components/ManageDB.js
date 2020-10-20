@@ -34,6 +34,8 @@ useEffect(()=>{
    
 },[isDeleted]);
 
+console.log(array)
+
 const handleDelete =(verse, index)=>{
     setIsClicked(prevState => ({
         ...prevState,
