@@ -18,23 +18,26 @@ const [array, setArray] = useState([]);
 const [deletedArray, setDeletedArray] = useState([]);
 const [isClicked, setIsClicked] = useState({});
 const [isDeleted, setIsDeleted] = useState(false)
+const [myDb, setMyDb] = useState({})
+
+//`https://toolzbox.herokuapp.com
 
 
 useEffect(()=>{
-
-        fetch(`https://toolzbox.herokuapp.com/dbInfo/${urlTitle}`)
+   
+        fetch(`/dbInfo/${urlTitle}`)
         .then((res) => res.json())
         .then((data) => {
-        console.log(data)
+        console.log(data.dataBaseArray)
         setDataBaseName(data.dataBaseName)
         setArray(data.haikuArray)
+        setMyDb(data)
         });
         console.log(isDeleted)
 
    
 },[isDeleted]);
-
-console.log(array)
+console.log('myDb',myDb)
 
 const handleDelete =(verse, index)=>{
     setIsClicked(prevState => ({
@@ -100,7 +103,7 @@ return(
 </ButtonWrapper>
 <Ul>
 
-{array != null ? (array.map((verse, index)=>{
+{array.map((verse, index)=>{
     return(
         <VerseWrapper key={index}>
             <Verse >
@@ -116,7 +119,7 @@ return(
             </DeleteUndoButton>}
         </VerseWrapper>
     )
-})): <div>loading</div>}
+})}
 </Ul>
 
 </>
@@ -177,7 +180,7 @@ const ButtonWrapper = styled.div`
 const SubmitDeletion = styled.button`
 position:fixed;
 @media screen and (min-width: 812px) {
-    margin-left:500px;
+    margin-left:200px;
     margin-top:300px;
   }
 

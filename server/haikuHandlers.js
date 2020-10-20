@@ -100,10 +100,14 @@ const getDbInfo = async (req, res) => {
   try {
     await client.connect();
     const db = client.db(id);
-    const dataBaseArray = await db.collection("Haiku").find().toArray();
+    const dataBase = await db.collection("Haiku").find().toArray();
+    console.log(dataBase[0].haikuDataBaseName)
+    const dataBaseName = dataBase[0].haikuDataBaseName
+    const haikuArray =dataBase[0].haikuArray
     res.status(201).json({
       status: 201,
-      dataBaseArray: dataBaseArray,
+      dataBaseName: dataBaseName,
+      haikuArray: haikuArray,
     });
   } catch (err) {
     res.status(500).json({
