@@ -98,7 +98,7 @@ return(
 </ButtonWrapper>
 <Ul>
 
-{array != undefined ? (array.map((verse, index)=>{
+{array != null ? (array.map((verse, index)=>{
     return(
         <VerseWrapper key={index}>
             <Verse >
