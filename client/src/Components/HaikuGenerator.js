@@ -11,7 +11,10 @@ const HaikuGenerator = () => {
 
   //https://toolzbox.herokuapp.com/allHaikus/${haikuDb._id}
 
+  console.log(urlTitle)
+
   useEffect(() => {
+    console.log("HEREERERE")
     fetch(`https://toolzbox.herokuapp.com/randomHaiku/${urlTitle}`)
       .then((res) => res.json())
       .then((randomHaiku) => {
@@ -19,7 +22,7 @@ const HaikuGenerator = () => {
         setAnimating(true);
       });
     setAnimating(false);
-  }, [urlTitle]);
+  }, []);
 
   const generateNewHaiku = async (e) => {
     fetch(`https://toolzbox.herokuapp.com/randomHaiku/${urlTitle}`)

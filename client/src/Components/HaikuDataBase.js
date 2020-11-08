@@ -23,6 +23,7 @@ const CreateHaikuDatabase = () => {
       <Link to={`/ManageDb/${urlTitle}`}>
       <DbName>{haikuDataBaseName}</DbName>
       </Link>
+      <Instructions>Click on your database's name to edit it</Instructions>
       
       <HaikuDataBaseForm onSubmit={(e) => handleCreateHaikuDatabase(e)}>
         <InputsWrapper>

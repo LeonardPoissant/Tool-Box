@@ -23,9 +23,11 @@ const [myDb, setMyDb] = useState({})
 //`https://toolzbox.herokuapp.com
 
 
+console.log(urlTitle)
+
 useEffect(()=>{
-   
-        fetch(`/dbInfo/${urlTitle}`)
+
+        fetch(`https://toolzbox.herokuapp.com/dbInfo/${urlTitle}`)
         .then((res) => res.json())
         .then((data) => {
         console.log(data.dataBaseArray)
@@ -34,10 +36,8 @@ useEffect(()=>{
         setMyDb(data)
         });
         console.log(isDeleted)
+},[]);
 
-   
-},[isDeleted]);
-console.log('myDb',myDb)
 
 const handleDelete =(verse, index)=>{
     setIsClicked(prevState => ({
@@ -76,18 +76,22 @@ const submitDelete =()=>{
       })
         .then((res) => res.json())
         .then((db) => {
-          console.log(db)
-          setIsClicked({})
-          setIsDeleted(!isDeleted)
-          
+        console.log(db)
+        setIsClicked({})
+        setIsDeleted(!isDeleted)
+        })
+        .then(()=>{
+            if(!isDeleted){
+                console.log(urlTitle)
+            history.push(`/HaikuGenerator/${urlTitle}`);} else{console.log('not ready')}
         })
         .catch((err) => {
-          console.log(err.data);
+        console.log(err.data);
         })
-        history.push(`/Generate/${urlTitle}`);
     } else{
         console.log("nothing to delete")
     }
+    
 };
 
 

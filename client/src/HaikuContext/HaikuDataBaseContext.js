@@ -17,7 +17,7 @@ const HaikuDataBaseProvider = ({ children }) => {
   //MOVE THE USEFFECT BACK TO 2ND AND 3RD PAGE SO ON MAIN PAGE WE CAN CLEAR ON REFRESH.
   /*useEffect(() => {
     setHaikuDataBaseName(sessionStorage.getItem("haikuDataBaseName"));
-  });*/
+  });*/  
 
   const onChange = (e) => {
     setHaikuDataBaseName(e);
@@ -28,7 +28,6 @@ const HaikuDataBaseProvider = ({ children }) => {
   const handleCreateHaikuDatabase = async (e) => {
     e.stopPropagation();
     e.preventDefault();
-    setUrlTitle(urlTitle);
 
     //https://toolzbox.herokuapp.com/createHaikus
 
