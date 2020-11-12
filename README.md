@@ -42,7 +42,7 @@ GET: https://toolzbox.herokuapp.com/:id/randomHaiku
 returns 3 random verses from a specific database.
 
 ```java
-fetch("https://toolzbox.herokuapp.com/randomHaiku/MyAwesomeHaikus")
+fetch("https://toolzbox.herokuapp.com/MyAwesomeHaikus/randomHaiku")
       .then((res) => res.json())
       .then((randomHaiku) => {
         console.log(randomHaiku)
@@ -65,7 +65,7 @@ GET: https://toolzbox.herokuapp.com/dbInfo/:id
 Returns all the information from a specific database
 
 ```java
-fetch("https://toolzbox.herokuapp.com/allVerses/MyAwesomeHaikus")
+fetch("https://toolzbox.herokuapp.com/MyAwesomeHaikus/allVerses")
       .then((res) => res.json())
       .then((data) => {
         console.log(data)
@@ -103,7 +103,7 @@ fetch("https://toolzbox.herokuapp.com/delete", {
         },
         mode: "cors",
         body: JSON.stringify({
-          urlTitle,
+          databaseTitle,
           deletedArray,
         }),
       })
