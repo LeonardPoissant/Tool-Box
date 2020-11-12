@@ -60,12 +60,12 @@ fetch("https://toolzbox.herokuapp.com/MyAwesomeHaikus/randomHaiku")
 }
 ```
 
-GET: https://toolzbox.herokuapp.com/dbInfo/:id
+GET: https://toolzbox.herokuapp.com/:id/dbInfo
 
 Returns all the information from a specific database
 
 ```java
-fetch("https://toolzbox.herokuapp.com/MyAwesomeHaikus/allVerses")
+fetch("https://toolzbox.herokuapp.com/MyAwesomeHaikus/dbInfo")
       .then((res) => res.json())
       .then((data) => {
         console.log(data)
