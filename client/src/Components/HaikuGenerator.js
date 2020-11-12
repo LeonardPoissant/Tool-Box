@@ -3,33 +3,39 @@ import React, { useState, useEffect, useContext } from "react";
 import styled, { keyframes } from "styled-components";
 
 import { HaikuContext } from "../HaikuContext/HaikuDataBaseContext";
+import Loader from "./LoadingSpinner"
 
 const HaikuGenerator = () => {
   const { urlTitle } = useContext(HaikuContext);
   const [generatedHaiku, setGeneratedHaiku] = useState([]);
   const [animating, setAnimating] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   //https://toolzbox.herokuapp.com/allHaikus/${haikuDb._id}
 
   console.log(urlTitle)
 
   useEffect(() => {
+    setLoading(true)
     console.log("HEREERERE")
-    fetch(`https://toolzbox.herokuapp.com/randomHaiku/${urlTitle}`)
+    fetch(`/${urlTitle}/randomHaiku}`)
       .then((res) => res.json())
       .then((randomHaiku) => {
         setGeneratedHaiku(randomHaiku.dataBaseArray);
         setAnimating(true);
+        setLoading(false)
       });
     setAnimating(false);
   }, []);
-
+ // `https://toolzbox.herokuapp.com/randomHaiku/${urlTitle}`
   const generateNewHaiku = async (e) => {
-    fetch(`https://toolzbox.herokuapp.com/randomHaiku/${urlTitle}`)
+    setLoading(true)
+    fetch(`/${urlTitle}/randomHaiku`)
       .then((res) => res.json())
       .then((randomHaiku) => {
         setGeneratedHaiku(randomHaiku.dataBaseArray);
         setAnimating(true);
+        setLoading(false)
       });
     setAnimating(false);
   };
@@ -37,6 +43,7 @@ const HaikuGenerator = () => {
   return (
     <>
       <HaikuWrapper>
+        {loading?(<Loader/>):(<></>)}
         <HaikuDisplay>
           {animating ? (
             generatedHaiku.map((verse, index) => {

@@ -7,6 +7,7 @@ import UndoRoundedIcon from '@material-ui/icons/UndoRounded';
 
 
 import { HaikuContext } from "../HaikuContext/HaikuDataBaseContext";
+import Loader from "./LoadingSpinner"
 
 
 const ManageDb = () =>{
@@ -19,6 +20,7 @@ const [deletedArray, setDeletedArray] = useState([]);
 const [isClicked, setIsClicked] = useState({});
 const [isDeleted, setIsDeleted] = useState(false)
 const [myDb, setMyDb] = useState({})
+const [loading, setLoading]= useState(false)
 
 //`https://toolzbox.herokuapp.com
 
@@ -26,6 +28,7 @@ const [myDb, setMyDb] = useState({})
 console.log(urlTitle)
 
 useEffect(()=>{
+    setLoading(true)
 
         fetch(`https://toolzbox.herokuapp.com/dbInfo/${urlTitle}`)
         .then((res) => res.json())
@@ -34,6 +37,8 @@ useEffect(()=>{
         setDataBaseName(data.dataBaseName)
         setArray(data.haikuArray)
         setMyDb(data)
+        setLoading(false)
+
         });
         console.log(isDeleted)
 },[]);
@@ -98,15 +103,11 @@ const submitDelete =()=>{
 
 return(
     <>
-  
-    <Title>{dataBaseName}</Title>
-    
-
+    <Title>{dataBaseName} </Title>
     <ButtonWrapper>
     <SubmitDeletion onClick={(e)=>submitDelete()}>CONFIRM</SubmitDeletion>
 </ButtonWrapper>
 <Ul>
-
 {array.map((verse, index)=>{
     return(
         <VerseWrapper key={index}>
@@ -125,10 +126,10 @@ return(
     )
 })}
 </Ul>
-
+{loading? (<Loader/>):(<div></div>)}
 </>
 )
-}
+};
 
 const Wrapper = styled.div`
 display:flex;

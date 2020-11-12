@@ -37,7 +37,7 @@ fetch("https://toolzbox.herokuapp.com/createHaikus", {
         })
 ```
 
-GET: https://toolzbox.herokuapp.com/randomHaiku/:id
+GET: https://toolzbox.herokuapp.com/:id/randomHaiku
 
 returns 3 random verses from a specific database.
 
@@ -60,7 +60,7 @@ fetch("https://toolzbox.herokuapp.com/randomHaiku/MyAwesomeHaikus")
 }
 ```
 
-GET: https://toolzbox.herokuapp.com/allVerses/:id
+GET: https://toolzbox.herokuapp.com/dbInfo/:id
 
 Returns all the information from a specific database
 

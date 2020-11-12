@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { HaikuContext } from "../HaikuContext/HaikuDataBaseContext";
+import Loader from "./LoadingSpinner"
 
 const CreateHaikuDatabase = () => {
   const {
@@ -12,7 +13,10 @@ const CreateHaikuDatabase = () => {
     haikuArray,
     setHaikuArray,
     urlTitle,
+    loading
+   
   } = useContext(HaikuContext);
+  
 
   useEffect(() => {
     setHaikuDataBaseName(sessionStorage.getItem("haikuDataBaseName"));
@@ -24,6 +28,8 @@ const CreateHaikuDatabase = () => {
       <DbName>{haikuDataBaseName}</DbName>
       </Link>
       <Instructions>Click on your database's name to edit it</Instructions>
+
+      {loading?(<Loader/>):(<div></div>)}
       
       <HaikuDataBaseForm onSubmit={(e) => handleCreateHaikuDatabase(e)}>
         <InputsWrapper>

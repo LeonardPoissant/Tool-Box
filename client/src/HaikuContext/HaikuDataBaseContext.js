@@ -9,6 +9,7 @@ const HaikuDataBaseProvider = ({ children }) => {
   const [haikuArray, setHaikuArray] = useState([]);
   const [urlTitle, setUrlTitle] = useRemoveSpace(haikuDataBaseName);
   const [alert, setAlert] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const saveContent = (haikuDataBaseName) => {
     window.sessionStorage.setItem("haikuDataBaseName", haikuDataBaseName);
@@ -23,16 +24,20 @@ const HaikuDataBaseProvider = ({ children }) => {
     setHaikuDataBaseName(e);
     saveContent(e);
     setUrlTitle(e);
+
   };
 
   const handleCreateHaikuDatabase = async (e) => {
     e.stopPropagation();
     e.preventDefault();
+    setLoading(true)
+   
 
     //https://toolzbox.herokuapp.com/createHaikus
 
     if (haikuArray.length >= 2) {
-      fetch("https://toolzbox.herokuapp.com/createHaikus", {
+    
+      fetch("/createHaikus", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -48,6 +53,7 @@ const HaikuDataBaseProvider = ({ children }) => {
           //setHaikuDataBaseName("");
           setHaikuArray([]);
           console.log(db);
+          setLoading(false);
         })
         .catch((err) => {
           console.log(err.data);
@@ -69,6 +75,7 @@ const HaikuDataBaseProvider = ({ children }) => {
         setUrlTitle,
         onChange,
         alert,
+        loading
       }}
     >
       {children}

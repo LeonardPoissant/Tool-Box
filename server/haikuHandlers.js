@@ -18,10 +18,14 @@ const createHaikuDB = async (req, res) => {
   const haikuString = haikuDataBase.haikuArray;
   let haikuArray = [];
   haikuArray.push(haikuString);
+  console.log('NAME',haikuDataBaseName)
 
   try {
+    if(haikuDataBaseName === undefined || haikuString === undefined){
+      throw "please use the key names from the API's documentation"
+    }
     await client.connect();
-    const db = client.db(haikuDataBaseName);
+    const db = client.db(haikuDataBaseName);0
     const createDB = await db
       .collection("Haiku")
       .updateOne(

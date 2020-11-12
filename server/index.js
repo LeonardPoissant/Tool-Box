@@ -49,12 +49,12 @@ express()
 
   //Get the randomzied Haiku from specific data base
 
-  .get("/randomHaiku/:id", getRandomHaiku)
+  .get("/:id/randomHaiku", getRandomHaiku)
 
 
   //Get the DB Info
 
-  .get("/dbInfo/:id", getDbInfo)
+  .get("/:id/dbInfo", getDbInfo)
 
   //Delete selected verses
 
