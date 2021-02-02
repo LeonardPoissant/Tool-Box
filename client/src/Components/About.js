@@ -8,28 +8,17 @@ const About = () => {
       <h1> ABOUT</h1>
 
       <Paragraph>
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book. It has survived not only five
-        centuries, but also the leap into electronic typesetting, remaining
-        essentially unchanged. It was popularised in the 1960s with the release
-        of Letraset sheets containing Lorem Ipsum passages, and more recently
-        with desktop publishing software like Aldus PageMaker including versions
-        of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and
-        typesetting industry. Lorem Ipsum has been the industry's standard dummy
-        text ever since the 1500s, when an unknown printer took a galley of type
-        and scrambled it to make a type specimen book. It has survived not only
-        five centuries, but also the leap into electronic typesetting, remaining
-        essentially unchanged. It was popularised in the 1960s with the release
-        of Letraset sheets containing Lorem Ipsum passages, and more recently
-        with desktop publishing software like Aldus PageMaker including versions
-        of Lorem Ipsum.
+        This is a tool to help you generate your own haikus, based on the text of your choice. To create your own haiku generator, choose a name for your haiku database and type it in the text field in the homepage. Memorize it for the future...
+        Then, click "start" and you can now enter individual haiku lines. Every time you enter a line, click on "submit verse" to save it to your generator's database. Once you submit a few lines, you can start "generating haikus".
+        To access your database and delete some lines you do not want to use anymore, click on the name of your database, at the top of the page.
+        You can keep on "feeding" your generator with haiku lines, as long as you remember the name you gave it (as you will have to re-enter it every time you come back to the website).
+        This is a tool that was made just for fun, and the content of your haiku databases will never be used for any commercial reasons. Also, your databases will remain fully anonymous because we do not collect any of your personal data.
+        We hope you enjoy it :-)
       </Paragraph>
 
       <Instructions>
         Find all the instructions needed to replicate this application
-        <a href="https://github.com/LeonardPoissant/Tool-Box">here</a>
+        <StyledA href="https://github.com/LeonardPoissant/Tool-Box" > here</StyledA>
       </Instructions>
     </Wrapper>
   );
@@ -43,11 +32,18 @@ const Wrapper = styled.div`
 `;
 
 const Paragraph = styled.p`
-  width: 500px;
+  width: 50%;
+  padding:3px;
+  line-height:45px;
 `;
 
 const Instructions = styled.p`
-  padding-top: 240px;
+
 `;
+
+const StyledA = styled.a`
+text-decoration:none;
+`;
+
 
 export default About;

@@ -7,6 +7,7 @@ import CreateHaikuDatabase from "./HaikuDataBase";
 import About from "./About";
 import ManageDb from "./ManageDB"
 
+
 import "./App.css";
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
             <ManageDb />
           </Route>
         </Switch>
+
       </BrowserRouter>
     </div>
   );
