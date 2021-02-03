@@ -67,7 +67,7 @@ const getRandomHaiku = async (req, res) => {
 
   try {
     await client.connect();
-    const db = client.db(newId);
+    const db = client.db(id);
     const dataBaseArray = await db.collection("Haiku").find().toArray();
 
     console.log('ARRAY', dataBaseArray)
