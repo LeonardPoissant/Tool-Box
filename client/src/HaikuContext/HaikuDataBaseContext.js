@@ -11,6 +11,7 @@ const HaikuDataBaseProvider = ({ children }) => {
   const [alert, setAlert] = useState(false);
   const [loading, setLoading] = useState(false);
 
+
   const saveContent = (haikuDataBaseName) => {
     window.sessionStorage.setItem("haikuDataBaseName", haikuDataBaseName);
   };
@@ -18,7 +19,7 @@ const HaikuDataBaseProvider = ({ children }) => {
   //MOVE THE USEFFECT BACK TO 2ND AND 3RD PAGE SO ON MAIN PAGE WE CAN CLEAR ON REFRESH.
   /*useEffect(() => {
     setHaikuDataBaseName(sessionStorage.getItem("haikuDataBaseName"));
-  });*/  
+  });*/
 
   const onChange = (e) => {
     setHaikuDataBaseName(e);
@@ -27,17 +28,21 @@ const HaikuDataBaseProvider = ({ children }) => {
 
   };
 
+
+
   const handleCreateHaikuDatabase = async (e) => {
     e.stopPropagation();
     e.preventDefault();
     setLoading(true)
-   
+
+
+    console.log(urlTitle)
 
     //https://toolzbox.herokuapp.com/createHaikus
 
     if (haikuArray.length >= 2) {
-    
-      fetch("/createHaikus", {
+
+      fetch("https://toolzbox.herokuapp.com/createHaikus", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

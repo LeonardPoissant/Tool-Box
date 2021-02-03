@@ -18,14 +18,14 @@ const createHaikuDB = async (req, res) => {
   const haikuString = haikuDataBase.haikuArray;
   let haikuArray = [];
   haikuArray.push(haikuString);
-  console.log('NAME',haikuDataBaseName)
+  console.log('NAME', haikuDataBaseName)
 
   try {
-    if(haikuDataBaseName === undefined || haikuString === undefined){
+    if (haikuDataBaseName === undefined || haikuString === undefined) {
       throw "please use the key names from the API's documentation"
     }
     await client.connect();
-    const db = client.db(haikuDataBaseName);0
+    const db = client.db(haikuDataBaseName); 0
     const createDB = await db
       .collection("Haiku")
       .updateOne(
@@ -58,11 +58,19 @@ const getRandomHaiku = async (req, res) => {
   });
   const { id } = req.params;
 
-  console.log({ id });
+  console.log({ id })
+
+  const newId = id.slice(0, -1)
+
+  console.log(newId)
+
+
   try {
     await client.connect();
-    const db = client.db(id);
+    const db = client.db(newId);
     const dataBaseArray = await db.collection("Haiku").find().toArray();
+
+    console.log('ARRAY', dataBaseArray)
 
     const flattenedArray = [];
     dataBaseArray.forEach((haikuArray) => {
@@ -101,13 +109,16 @@ const getDbInfo = async (req, res) => {
     useNewUrlParser: true,
   });
   const { id } = req.params;
+
+  console.log(id)
+
   try {
     await client.connect();
     const db = client.db(id);
     const dataBase = await db.collection("Haiku").find().toArray();
     console.log(dataBase[0].haikuDataBaseName)
     const dataBaseName = dataBase[0].haikuDataBaseName
-    const haikuArray =dataBase[0].haikuArray
+    const haikuArray = dataBase[0].haikuArray
     res.status(201).json({
       status: 201,
       dataBaseName: dataBaseName,
@@ -115,7 +126,7 @@ const getDbInfo = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      data: dataBaseArray,
+
       message: "Something went wrong",
       err,
     });
@@ -123,7 +134,7 @@ const getDbInfo = async (req, res) => {
 };
 
 
-const deleteVerses = async (req, res)=>{
+const deleteVerses = async (req, res) => {
   const client = new MongoClient(uri, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
@@ -138,12 +149,12 @@ const deleteVerses = async (req, res)=>{
     const db = client.db(id);
     const dataBase = await db.collection("Haiku").updateOne(
       { haikuDataBaseName: id },
-      { $pull: { haikuArray: { $in: deletedArray } }},
+      { $pull: { haikuArray: { $in: deletedArray } } },
       { upsert: true }
-      )
+    )
     res.status(201).json({
       status: 201,
-      dataBase:dataBase,
+      dataBase: dataBase,
     });
   } catch (err) {
     res.status(500).json({

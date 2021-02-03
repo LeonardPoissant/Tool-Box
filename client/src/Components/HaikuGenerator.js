@@ -11,26 +11,28 @@ const HaikuGenerator = () => {
   const [animating, setAnimating] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  console.log('URLTITLE', urlTitle)
+
   //https://toolzbox.herokuapp.com/allHaikus/${haikuDb._id}
 
-  console.log(urlTitle)
 
   useEffect(() => {
     setLoading(true)
-    console.log("HEREERERE")
-    fetch(`/${urlTitle}/randomHaiku}`)
+
+    fetch(`https://toolzbox.herokuapp.com/randomHaiku/${urlTitle}`)
       .then((res) => res.json())
       .then((randomHaiku) => {
         setGeneratedHaiku(randomHaiku.dataBaseArray);
         setAnimating(true);
         setLoading(false)
+        console.log(randomHaiku)
       });
     setAnimating(false);
   }, []);
- // `https://toolzbox.herokuapp.com/randomHaiku/${urlTitle}`
+  // `https://toolzbox.herokuapp.com/randomHaiku/${urlTitle}`
   const generateNewHaiku = async (e) => {
     setLoading(true)
-    fetch(`/${urlTitle}/randomHaiku`)
+    fetch(`https://toolzbox.herokuapp.com/randomHaiku/${urlTitle}`)
       .then((res) => res.json())
       .then((randomHaiku) => {
         setGeneratedHaiku(randomHaiku.dataBaseArray);
@@ -40,10 +42,12 @@ const HaikuGenerator = () => {
     setAnimating(false);
   };
 
+  console.log('AFTER FECTCH', generatedHaiku)
+
   return (
     <>
       <HaikuWrapper>
-        {loading?(<Loader/>):(<></>)}
+        {loading ? (<Loader />) : (<></>)}
         <HaikuDisplay>
           {animating ? (
             generatedHaiku.map((verse, index) => {
@@ -60,8 +64,8 @@ const HaikuGenerator = () => {
               );
             })
           ) : (
-            <> </>
-          )}
+              <> </>
+            )}
         </HaikuDisplay>
       </HaikuWrapper>
       <GenerateWrapper>

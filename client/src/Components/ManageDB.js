@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState} from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { useHistory } from "react-router-dom";
 
-import styled, {css} from "styled-components";
+import styled, { css } from "styled-components";
 import ClearIcon from '@material-ui/icons/Clear';
 import UndoRoundedIcon from '@material-ui/icons/UndoRounded';
 
@@ -10,125 +10,127 @@ import { HaikuContext } from "../HaikuContext/HaikuDataBaseContext";
 import Loader from "./LoadingSpinner"
 
 
-const ManageDb = () =>{
-let history = useHistory();
-const { urlTitle } = useContext(HaikuContext);
+const ManageDb = () => {
+    let history = useHistory();
+    const { urlTitle } = useContext(HaikuContext);
 
-const [dataBaseName, setDataBaseName] = useState("");
-const [array, setArray] = useState([]);
-const [deletedArray, setDeletedArray] = useState([]);
-const [isClicked, setIsClicked] = useState({});
-const [isDeleted, setIsDeleted] = useState(false)
-const [myDb, setMyDb] = useState({})
-const [loading, setLoading]= useState(false)
+    const [dataBaseName, setDataBaseName] = useState("");
+    const [array, setArray] = useState([]);
+    const [deletedArray, setDeletedArray] = useState([]);
+    const [isClicked, setIsClicked] = useState({});
+    const [isDeleted, setIsDeleted] = useState(false)
+    const [myDb, setMyDb] = useState({})
+    const [loading, setLoading] = useState(false)
 
-//`https://toolzbox.herokuapp.com
+    //`https://toolzbox.herokuapp.com
 
 
-console.log(urlTitle)
+    console.log(urlTitle)
 
-useEffect(()=>{
-    setLoading(true)
+    useEffect(() => {
+        setLoading(true)
+        console.log('here')
 
-        fetch(`https://toolzbox.herokuapp.com/dbInfo/${urlTitle}`)
-        .then((res) => res.json())
-        .then((data) => {
-        console.log(data.dataBaseArray)
-        setDataBaseName(data.dataBaseName)
-        setArray(data.haikuArray)
-        setMyDb(data)
-        setLoading(false)
+        fetch(`/dbInfo/${urlTitle}`)
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data.dataBaseArray)
+                setDataBaseName(data.dataBaseName)
+                setArray(data.haikuArray)
+                setMyDb(data)
+                setLoading(false)
 
-        });
+            });
         console.log(isDeleted)
-},[]);
+    }, []);
 
 
-const handleDelete =(verse, index)=>{
-    setIsClicked(prevState => ({
-        ...prevState,
-        [index]: !prevState[index]
-    }));
-    setDeletedArray([...deletedArray, verse])
-};
+    const handleDelete = (verse, index) => {
+        setIsClicked(prevState => ({
+            ...prevState,
+            [index]: !prevState[index]
+        }));
+        setDeletedArray([...deletedArray, verse])
+    };
 
-const handleUndo = (verse, index)=>{    
-    setIsClicked(prevState => ({
-        ...prevState,
-        [index]: !prevState[index]
-    }));
+    const handleUndo = (verse, index) => {
+        setIsClicked(prevState => ({
+            ...prevState,
+            [index]: !prevState[index]
+        }));
 
-    const deletedVerseIndex = deletedArray.indexOf(verse);
-    if (deletedVerseIndex !== -1) deletedArray.splice(deletedVerseIndex, 1);
-    setDeletedArray(deletedArray);
-};
-
-
-
-const submitDelete =()=>{
-    if(deletedArray.length >0){
-    fetch("https://toolzbox.herokuapp.com/delete", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        mode: "cors",
-        body: JSON.stringify({
-          urlTitle,
-          deletedArray,
-        }),
-      })
-        .then((res) => res.json())
-        .then((db) => {
-        console.log(db)
-        setIsClicked({})
-        setIsDeleted(!isDeleted)
-        })
-        .then(()=>{
-            if(!isDeleted){
-                console.log(urlTitle)
-            history.push(`/HaikuGenerator/${urlTitle}`);} else{console.log('not ready')}
-        })
-        .catch((err) => {
-        console.log(err.data);
-        })
-    } else{
-        console.log("nothing to delete")
-    }
-    
-};
+        const deletedVerseIndex = deletedArray.indexOf(verse);
+        if (deletedVerseIndex !== -1) deletedArray.splice(deletedVerseIndex, 1);
+        setDeletedArray(deletedArray);
+    };
 
 
 
-return(
-    <>
-    <Title>{dataBaseName} </Title>
-    <ButtonWrapper>
-    <SubmitDeletion onClick={(e)=>submitDelete()}>CONFIRM</SubmitDeletion>
-</ButtonWrapper>
-<Ul>
-{array.map((verse, index)=>{
-    return(
-        <VerseWrapper key={index}>
-            <Verse >
-            {verse}
-            </Verse>
-        {!isClicked[index]? 
-            (<DeleteUndoButton onClick={(e) => handleDelete(verse, index, e)}>
-                <ClearIcon id={index} fontSize={"small"}/>
-            </DeleteUndoButton>) 
-            : 
-            <DeleteUndoButton onClick={(e) => handleUndo(verse, index, e)}>
-                <UndoRoundedIcon fontSize={"small"}/>
-            </DeleteUndoButton>}
-        </VerseWrapper>
+    const submitDelete = () => {
+        if (deletedArray.length > 0) {
+            fetch("https://toolzbox.herokuapp.com/delete", {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+                mode: "cors",
+                body: JSON.stringify({
+                    urlTitle,
+                    deletedArray,
+                }),
+            })
+                .then((res) => res.json())
+                .then((db) => {
+                    console.log(db)
+                    setIsClicked({})
+                    setIsDeleted(!isDeleted)
+                })
+                .then(() => {
+                    if (!isDeleted) {
+                        console.log(urlTitle)
+                        history.push(`/HaikuGenerator/${urlTitle}`);
+                    } else { console.log('not ready') }
+                })
+                .catch((err) => {
+                    console.log(err.data);
+                })
+        } else {
+            console.log("nothing to delete")
+        }
+
+    };
+
+
+
+    return (
+        <>
+            <Title>{dataBaseName} </Title>
+            <ButtonWrapper>
+                <SubmitDeletion onClick={(e) => submitDelete()}>CONFIRM</SubmitDeletion>
+            </ButtonWrapper>
+            <Ul>
+                {array.map((verse, index) => {
+                    return (
+                        <VerseWrapper key={index}>
+                            <Verse >
+                                {verse}
+                            </Verse>
+                            {!isClicked[index] ?
+                                (<DeleteUndoButton onClick={(e) => handleDelete(verse, index, e)}>
+                                    <ClearIcon id={index} fontSize={"small"} />
+                                </DeleteUndoButton>)
+                                :
+                                <DeleteUndoButton onClick={(e) => handleUndo(verse, index, e)}>
+                                    <UndoRoundedIcon fontSize={"small"} />
+                                </DeleteUndoButton>}
+                        </VerseWrapper>
+                    )
+                })}
+            </Ul>
+            {loading ? (<Loader />) : (<div></div>)}
+        </>
     )
-})}
-</Ul>
-{loading? (<Loader/>):(<div></div>)}
-</>
-)
 };
 
 const Wrapper = styled.div`
