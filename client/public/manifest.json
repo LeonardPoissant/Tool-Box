@@ -1,6 +1,6 @@
 {
   "short_name": "Haiku Generator",
-  "name": "Create React App Sample",
+  "name": "Haiku-Generator",
   "icons": [
     {
       "src": "favicon.ico",
@@ -21,6 +21,5 @@
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff",
-  "description": "A simple Haiku generator"
+  "background_color": "#ffffff"
 }
